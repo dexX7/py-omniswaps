@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Prepare Funding Transaction</h1>
+
+  <form method="post" name="login">
+    {{ form.hidden_tag() }}
+      <div>
+        <label>Amount of tokens for sale:</label>
+        {{ form.amount() }}
+      </div>
+      <div>
+        <label>Identifier of tokens for sale:</label>
+        {{ form.identifier() }}
+      </div>
+      <div>
+        <label>Source:</label>
+        {{ form.source() }}
+      </div>
+      <button type="submit">Submit</button>
+  </form>
+{% endblock %}

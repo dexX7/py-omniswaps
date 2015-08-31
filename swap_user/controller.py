@@ -7,7 +7,7 @@ def getpubkey(pubkeyhash=None):
     if pubkeyhash is None:
         pubkeyhash = getnewaddress()
     result = validateaddress(pubkeyhash)
-    return result['pubkey'], pubkeyhash
+    return result['pubkey']#, pubkeyhash
 
 def getunspent(min_amount=0.0005):
     unspent = listunspent()
@@ -57,12 +57,11 @@ def createpayment(destination, fee=0.0001):
     return decoded
 
 def test_shared():
-    pubkey, pubkeyhash = getpubkey()
+    pubkey = getpubkey()
     destination = request_shared(pubkey)
     tx_funding = createpayment(destination)
     # only needed, if private key is not passed
     addmultisigaddress(len(destination['pubkeys']), destination['pubkeys'])
-    privkey = dumpprivkey(pubkeyhash)
     request = {
         'txid': tx_funding['txid'],
         'vout': tx_funding['vout'][0]['n'],

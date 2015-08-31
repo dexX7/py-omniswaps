@@ -21,19 +21,22 @@ def request_destination(from_address):
     return destination
 
 
-def get_stub(destination, tx):
-    vout_n = -1
+def find_funding_out(destination, tx):
     for vout in tx['vout']:
-        if 'scriptPubKey' in vout:
-            if 'addresses' in vout['scriptPubKey']:
-                if destination['address'] in vout['scriptPubKey']['addresses']:
-                    vout_n = vout['n']
-                    break
-    if vout_n < 0:
-        raise Exception('invalid vout')
+        if 'scriptPubKey' not in vout:
+            continue
+        if 'addresses' not in vout['scriptPubKey']:
+            continue
+        if destination['address'] in vout['scriptPubKey']['addresses']:
+            return vout['n']
+
+    raise Exception('invalid vout')
+
+
+def get_stub(destination, tx):
+    vout = find_funding_out(destination, tx)
     stub = request_signed(
-        tx['txid'],
-        vout_n, # TODO: extract
+        tx['txid'], vout,
         destination['scriptPubKey'],
         destination['redeemScript']
     )
@@ -42,11 +45,11 @@ def get_stub(destination, tx):
 
 
 def sign_payout(rawtx, destination, funding):
+    vout = find_funding_out(destination, funding)
     signed = signrawtransaction(
         rawtx=rawtx,
         vins=[{
-            'txid': funding['txid'],
-            'vout': funding['vout'][2]['n'], # TODO: extract
+            'txid': funding['txid'], 'vout': vout,
             'scriptPubKey': destination['scriptPubKey'],
             'redeemScript': destination['redeemScript']
         }],
@@ -75,6 +78,7 @@ def prepare_funding(from_address, to_destination, token_id, amount):
     omni_setautocommit(False)
     rawtx = omni_send(from_address, to_destination, token_id, amount)
     omni_setautocommit(True)
+
     decoded = decoderawtransaction(rawtx)
     decoded['hex'] = rawtx
 
@@ -93,6 +97,7 @@ def prepare_initial(from_address, token_id, amount):
 def prepare_offer(from_address, token_id, amount, desired):
     blob = prepare_initial(from_address, token_id, amount)
     blob['payment'] = get_signed_payout(blob, from_address, desired)
+
     return blob
 
 

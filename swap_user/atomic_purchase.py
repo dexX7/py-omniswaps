@@ -1,6 +1,7 @@
 #!/usr/bin/env
 import sys
 import decimal
+import random
 import simplejson
 
 import builder
@@ -36,6 +37,7 @@ def select_coins(min_value):
     selected_coins = []
     total = decimal.Decimal('0.00000000')
     unspent = listunspent()
+    random.shuffle(unspent)
     for out in unspent:
         total += out['amount']
         selected_coins.append({'txid': out['txid'], 'vout': out['vout']})

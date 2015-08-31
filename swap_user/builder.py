@@ -26,6 +26,11 @@ def delout(rawtx, n):
     return result
 
 
+def addin(rawtx, txid, vout):
+    result = call_tx(rawtx, 'in=%s:%d' % (txid, vout))
+    return result
+
+
 def outaddr(rawtx, value, address):
     result = call_tx(rawtx, 'outaddr=%s:%s' % (value, address))
     return result

@@ -11,8 +11,6 @@ from api import request_shared, request_signed
 
 def print_json(parsed):
     print(simplejson.dumps(parsed, indent=2))
-    #except:
-    #    print(parsed)
 
 
 def request_destination(from_address):
@@ -86,8 +84,10 @@ def prepare_offer(from_address, token_id, amount, desired):
     blob['payment'] = get_signed_payout(blob, from_address, desired)
     return blob
 
+
 def print_blob_detail(blob):
     print_json(blob)
+
 
 def print_blob(blob):
     blob = {
@@ -96,9 +96,12 @@ def print_blob(blob):
     }
     print_json(blob)
 
+
 def help():
     print("atomic_create_offer address tokenid forsale desired\n")
-    print("Prepares a signed transaction for an atomic swap.")
+    print("Prepares a signed transaction for an atomic swap.\n")
+    print("Example:")
+    print("atomic_create_offer muPnbit6RgucdziK5RsRhUueuhpkEvLk4t 2 10.0 1.0")
 
     exit()
 

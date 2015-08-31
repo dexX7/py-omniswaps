@@ -22,14 +22,24 @@ def request_destination(from_address):
 
 
 def get_stub(destination, tx):
+    vout_n = -1
+    for vout in tx['vout']:
+        if 'scriptPubKey' in vout:
+            if 'addresses' in vout['scriptPubKey']:
+                if destination['address'] in vout['scriptPubKey']['addresses']:
+                    vout_n = vout['n']
+                    break
+    if vout_n < 0:
+        raise Exception('invalid vout')
     stub = request_signed(
         tx['txid'],
-        tx['vout'][2]['n'], # TODO: extract
+        vout_n, # TODO: extract
         destination['scriptPubKey'],
         destination['redeemScript']
     )
 
     return stub
+
 
 def sign_payout(rawtx, destination, funding):
     signed = signrawtransaction(
@@ -44,6 +54,7 @@ def sign_payout(rawtx, destination, funding):
     )
 
     return signed['hex']
+
 
 def get_signed_payout(blob, to_address, amount):
     stub = blob['stub']

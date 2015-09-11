@@ -1,19 +1,19 @@
-from flask import render_template, jsonify
+from flask import make_response, jsonify
 from app import app
 from controller import *
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('404.html'), 404
+    return make_response(jsonify({'error': 'not found'}), 404)
 
 @app.errorhandler(500)
 def internal_error(error):
-    return render_template('500.html'), 500
+    return make_response(jsonify({'error': 'internal server error'}), 500)
 
 @app.route('/pubkey')
 @app.route('/pubkey/<pubkeyhash>')
 def pubkey(pubkeyhash=None):
-    return getpubkey(pubkeyhash)
+    return jsonify({'pubkey': getpubkey(pubkeyhash)})
 
 @app.route('/createshared/<pubkey>')
 def destination(pubkey):
@@ -30,4 +30,4 @@ def signed(txid, vout, scriptPubKey, redeemScript):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html", title='Home')
+    return 'hi there!'

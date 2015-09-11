@@ -1,6 +1,5 @@
 from server import *
 
-addresses = {}
 
 def getpubkey(pubkeyhash=None):
     if pubkeyhash is None:
@@ -8,12 +7,13 @@ def getpubkey(pubkeyhash=None):
     result = validateaddress(pubkeyhash)
     return result['pubkey']
 
+
 def getscriptpubkey(pubkeyhash):
     result = validateaddress(pubkeyhash)
     return result['scriptPubKey']
 
+
 def createshared(other_pubkey):
-    global addresses
     pubkey = getpubkey()
     pubkeys = sorted([pubkey, other_pubkey])
     response_create = createmultisig(len(pubkeys), pubkeys)
@@ -27,8 +27,8 @@ def createshared(other_pubkey):
         'scriptPubKey': getscriptpubkey(response_script['p2sh']),
         'type': response_script['type'],
     }
-    addresses[result['address']] = result
     return result
+
 
 def createunsigned(txid, vout):
     rawtx = createrawtransaction([{'txid': txid, 'vout': vout}])
@@ -42,13 +42,9 @@ def createunsigned(txid, vout):
         'vout': decoded['vout'],
     }
 
+
 # TOOD: must not sign any other than original! request + sign must be atomic!
 def createsigned(txid, vout, scriptPubKey, redeemScript):
-    #global addresses
-    #if address not in addresses:
-    #    raise Exception('Address %s not found' % (address))
-    #scriptPubKey = addresses[address]['scriptPubKey']
-    #redeemScript = addresses[address]['redeemScript']
     rawtx = createunsigned(txid, vout)['hex']
     signresult = signrawtransaction(rawtx, [{
         'txid': txid,

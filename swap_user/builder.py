@@ -5,7 +5,6 @@ BASE_ARGS = '-regtest'
 
 
 def call_tx(rawtx, cmd=None):
-    # print('bitcoin-tx.exe %s %s %s' % (BASE_ARGS, rawtx, cmd))
     if cmd is None:
         return subprocess.check_output([BITCOIN_TX, '-regtest', rawtx])
     return subprocess.check_output([BITCOIN_TX, '-regtest', rawtx, cmd]).strip()

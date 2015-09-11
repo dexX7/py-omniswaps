@@ -25,7 +25,6 @@ def getnewaddress():
 def createrawtransaction(vins=[], vout={}):
     import json
     vout = json.loads(json.dumps(vout, default=EncodeDecimal))
-    # print("createrawtransaction %s %s" % (vins, vout))
     return rpc_connection.createrawtransaction(vins, vout)
 
 def signrawtransaction(rawtx, vins=None, privkeys=None, sighashtype=None):
@@ -58,9 +57,6 @@ def sendrawtransaction(rawtx, high_fees=True):
 def omni_setautocommit(flag):
     return rpc_connection.omni_setautocommit(flag)
 
-def omni_send(from_address, to_address, token_id, amount, reference="0.01"):
-    redeem = ""
-    # print("omni_send %s %s %d %s %s %s" % (
-    #     from_address, to_address, token_id, amount, redeem, reference))
+def omni_send(from_address, to_address, token_id, amount, reference="0.01", redeem=""):
     return rpc_connection.omni_send(
         from_address, to_address, token_id, amount, redeem, reference)

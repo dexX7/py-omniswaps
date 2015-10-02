@@ -1,6 +1,6 @@
 import unittest
 from KeyRepository import KeyAlreadyUsed, KeyUnknown, InvalidScript
-from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+from bitcoinrpc.authproxy import AuthServiceProxy
 from MemoryKeyRepository import MemoryKeyRepository
 import config
 
@@ -181,6 +181,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
 
         # TODO: test successful signing
         # TODO: ensure only the signing key is used!
+        # TODO: ensure output wasn't used before!
 
 
 if __name__ == '__main__':

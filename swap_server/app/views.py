@@ -9,7 +9,8 @@ ctrl = Controller()
 
 
 def respond(result, code):
-    print(result)
+    app.logger.info(result)
+
     return make_response(jsonify(result), code)
 
 

@@ -1,3 +1,4 @@
+from bitcoinrpc.authproxy import AuthServiceProxy
 from KeyRepository import KeyRepository, KeyAlreadyUsed, KeyUnknown, InvalidScript
 
 
@@ -7,7 +8,7 @@ class MemoryKeyRepository(KeyRepository):
         """
         Creates a new instance.
 
-        :param rpcServer: the RPC connection
+        :param AuthServiceProxy rpcServer: the RPC connection
         """
         self.rpc = rpcServer
         self.keysUsed = []
@@ -21,6 +22,9 @@ class MemoryKeyRepository(KeyRepository):
     def storePubKey(self, newPubKey, pubKeyHash):
         """
         Stores a new public key.
+
+        :param str newPubKey:  the public key to store
+        :param str pubKeyHash: the corresponding pubkey-hash
         """
         assert not self.isKeyUnused(newPubKey)
         assert not self.isKeyUsed(newPubKey)
@@ -29,7 +33,9 @@ class MemoryKeyRepository(KeyRepository):
 
     def markKeyDirty(self, usedPubKey):
         """
-        Marks a public key as "used".
+        Marks a public key as used.
+
+        :param str usedPubKey: the used public key
         """
         assert self.isKeyUnused(usedPubKey)
         assert not self.isKeyUsed(usedPubKey)
@@ -38,13 +44,21 @@ class MemoryKeyRepository(KeyRepository):
 
     def isKeyUsed(self, pubKey):
         """
-        Checks whether the public key is used.
+        Checks whether the public key is unused.
+
+        :param str pubKey: the public key to check
+
+        :returns bool: whether the key was not used before
         """
         return pubKey in self.keysUsed
 
     def isKeyUnused(self, pubKey):
         """
         Checks whether the public key is unused.
+
+        :param str pubKey: the public key to check
+
+        :returns bool: whether the key was not used before
         """
         return pubKey in self.keysUnused
 
@@ -55,6 +69,8 @@ class MemoryKeyRepository(KeyRepository):
     def GetNextPubKey(self):
         """
         Generates and stores a new key-pair.
+
+        :returns str: an unused public key
         """
         pubKeyHash = self.rpc.getnewaddress()
         keyInfo = self.rpc.validateaddress(pubKeyHash)
@@ -72,6 +88,13 @@ class MemoryKeyRepository(KeyRepository):
     def SignTransaction(self, rawTx, vIns, sigHashType, signingKey):
         """
         Signs a raw transaction.
+
+        :param str  rawTx:       the raw transaction to sign
+        :param list vIns:        the transaction inputs, including scriptPubKey and redeemScript
+        :param str  sigHashType: the signature hash type
+        :param str  signingKey:  the key used to sign the transaction
+
+        :returns: the signed raw transaction
         """
         if self.isKeyUsed(signingKey):
             raise KeyAlreadyUsed()
@@ -89,6 +112,10 @@ class MemoryKeyRepository(KeyRepository):
     def retrieveKey(self, pubKey):
         """
         Retrieves a private key corresponding to the given public key.
+
+        :param str pubKey: the public key for the key lookup
+
+        :return str: the corresponding private key
         """
         assert pubKey in self.keyToHash
         pubKeyHash = self.keyToHash[pubKey]
@@ -98,6 +125,12 @@ class MemoryKeyRepository(KeyRepository):
     def checkTx(self, rawTx, vIns, pubKey):
         """
         Verifies transaction and scripts.
+
+        :param str  rawTx:  the raw transaction to sign
+        :param list vIns:   the transaction inputs, including scriptPubKey and redeemScript
+        :param str  pubKey: the key going to be used
+
+        :returns bool: whether transaction should be signed
         """
         try:
             tx = self.rpc.decoderawtransaction(rawTx)

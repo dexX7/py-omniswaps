@@ -21,7 +21,7 @@ class KeyRepository:
         """
         Generates and stores a new key-pair.
 
-        :return: the public key corresponding to the new key
+        :returns: the public key corresponding to the new key
         """
         return NotImplemented
 
@@ -33,6 +33,6 @@ class KeyRepository:
         :param vIns:        the transaction inputs, including scriptPubKey and redeemScript
         :param sigHashType: the signature hash type
         :param signingKey:  the key used to sign the transaction
-        :return: the signed raw transaction
+        :returns: the signed raw transaction
         """
         return NotImplemented

@@ -16,7 +16,7 @@ Message:
 %(message)s
 ''')
 
-    handler = RotatingFileHandler('flask.log', maxBytes=10000, backupCount=1)
+    handler = RotatingFileHandler('logs/flask.log', maxBytes=1000000, backupCount=50)
     handler.setFormatter(formatter)
     handler.setLevel(logging.DEBUG)
 

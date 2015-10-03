@@ -24,8 +24,8 @@ def internal_error(error):
     return make_response(jsonify(result), code)
 
 
-@app.route('/getnextpubkey')
-def getnextpubkey():
+@app.route('/getpubkey')
+def getpubkey():
     pubKey = ctrl.GetNextPubKey()
     result = {'pubkey': pubKey}
     code = 200
@@ -66,3 +66,9 @@ def sign():
         code = 403
 
     return make_response(jsonify(result), code)
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return 'hello!'

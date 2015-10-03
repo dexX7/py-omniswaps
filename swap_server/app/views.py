@@ -46,7 +46,7 @@ def getpubkey():
 
 @app.route('/sign', methods=['POST'])
 def sign():
-    data = request.form
+    data = request.get_json()
 
     if 'rawtx' not in data or 'prevtxs' not in data or 'sighashtype' not in data or 'key' not in data:
         result = {'error': 'malformed request'}

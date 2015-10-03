@@ -27,7 +27,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
 
     def test_SignDummy(self):
         rawTx = '01000000000000000000'
-        vIns = {}
+        vIns = []
         sigHashType = 'ALL'
         signingKey = self.repository.GetNextPubKey()
 
@@ -37,7 +37,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
 
     def test_SignKeyAlreadyUsed(self):
         rawTx = '01000000000000000000'
-        vIns = {}
+        vIns = []
         sigHashType = 'ALL'
         signingKey = self.repository.GetNextPubKey()
 
@@ -47,7 +47,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
 
     def test_SignUnknownKey(self):
         rawTx = '01000000000000000000'
-        vIns = {}
+        vIns = []
         sigHashType = 'ALL'
         signingKey = '038306828cc42bdfebb2c6d82ed7a737e5cf49cad7588bfda880aef2dc03979ea6'
 
@@ -77,13 +77,13 @@ class TestMemoryKeyRepository(unittest.TestCase):
         # malformed hex
         self.assertFalse(self.repository.checkTx(
             '0100000000000000000',
-            {},
+            [],
             '038306828cc42bdfebb2c6d82ed7a737e5cf49cad7588bfda880aef2dc03979ea6'))
 
         # vIns size mismatch
         self.assertFalse(self.repository.checkTx(
             '01000000016fc887ac32de1e24dc9e8a7a0f3ba39f351b732dac72428202994c42c0c26e020000000000ffffffff0000000000',
-            {},
+            [],
             '02eaeaf4de1717a5c4dc21ca4de53b82a305dbea8659babb32b3c791f6374639c9'))
 
         # tx.vIns size mismatch
@@ -180,8 +180,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
             '03910e30c63e3907cb323f38919ed35216d6263a41096252efcf068dd34c642fd6'))
 
         # TODO: test successful signing
-        # TODO: ensure only the signing key is used!
-        # TODO: ensure output wasn't used before!
+        # TODO: test only the signing key is used!
 
 
 if __name__ == '__main__':

@@ -12,18 +12,20 @@ class MemoryKeyRepository(KeyRepository):
         self.rpc = rpcServer
         self.keysUsed = []
         self.keysUnused = []
+        self.keyToHash = {}
 
     ##
     # Key storage:
     #
 
-    def storePubKey(self, newPubKey):
+    def storePubKey(self, newPubKey, pubKeyHash):
         """
         Stores a new public key.
         """
         assert not self.isKeyUnused(newPubKey)
         assert not self.isKeyUsed(newPubKey)
         self.keysUnused.append(newPubKey)
+        self.keyToHash[newPubKey] = pubKeyHash
 
     def markKeyDirty(self, usedPubKey):
         """
@@ -60,7 +62,7 @@ class MemoryKeyRepository(KeyRepository):
         assert keyInfo['address'] == pubKeyHash
         assert 'pubkey' in keyInfo
         pubKey = keyInfo['pubkey']
-        self.storePubKey(pubKey)
+        self.storePubKey(pubKey, pubKeyHash)
         return pubKey
 
     ##
@@ -78,10 +80,20 @@ class MemoryKeyRepository(KeyRepository):
         if not self.checkTx(rawTx, vIns, signingKey):
             raise InvalidScript()
         self.markKeyDirty(signingKey)
-        result = self.rpc.signrawtransaction(rawTx)
+        privKey = self.retrieveKey(signingKey)
+        result = self.rpc.signrawtransaction(rawTx, vIns, [privKey], sigHashType)
         assert 'hex' in result
         assert 'complete' in result
         return result['hex'], result['complete']
+
+    def retrieveKey(self, pubKey):
+        """
+        Retrieves a private key corresponding to the given public key.
+        """
+        assert pubKey in self.keyToHash
+        pubKeyHash = self.keyToHash[pubKey]
+        privKey = self.rpc.dumpprivkey(pubKeyHash)
+        return privKey
 
     def checkTx(self, rawTx, vIns, pubKey):
         """

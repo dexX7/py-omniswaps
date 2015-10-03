@@ -1,33 +1,68 @@
-from flask import make_response, jsonify
+from flask import make_response, jsonify, request
+from KeyRepository import KeyAlreadyUsed
+from KeyRepository import KeyUnknown
+from KeyRepository import InvalidScript
 from app import app
-from controller import *
+from controller import Controller
+
+ctrl = Controller()
+
 
 @app.errorhandler(404)
 def not_found_error(error):
-    return make_response(jsonify({'error': 'not found'}), 404)
+    result = {'error': 'not found'}
+    code = 404
+
+    return make_response(jsonify(result), code)
+
 
 @app.errorhandler(500)
 def internal_error(error):
-    return make_response(jsonify({'error': 'internal server error'}), 500)
+    result = {'error': 'internal server error'}
+    code = 500
 
-@app.route('/pubkey')
-@app.route('/pubkey/<pubkeyhash>')
-def pubkey(pubkeyhash=None):
-    return jsonify({'pubkey': getpubkey(pubkeyhash)})
+    return make_response(jsonify(result), code)
 
-@app.route('/createshared/<pubkey>')
-def destination(pubkey):
-    return jsonify(createshared(pubkey))
 
-@app.route('/createunsigned/<txid>-<int:vout>')
-def unsigned(txid, vout):
-    return jsonify(createunsigned(txid, vout))
+@app.route('/getnextpubkey')
+def getnextpubkey():
+    pubKey = ctrl.GetNextPubKey()
+    result = {'pubkey': pubKey}
+    code = 200
 
-@app.route('/createsigned/<txid>-<int:vout>-<scriptPubKey>-<redeemScript>')
-def signed(txid, vout, scriptPubKey, redeemScript):
-    return jsonify(createsigned(txid, vout, scriptPubKey, redeemScript))
+    return make_response(jsonify(result), code)
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return 'hi there!'
+
+@app.route('/sign', methods=['POST'])
+def sign():
+    data = request.form
+
+    if 'rawtx' not in data or 'prevtxs' not in data or 'sighashtype' not in data or 'key' not in data:
+        result = {'error': 'malformed request'}
+        code = 400
+
+        return make_response(jsonify(result), code)
+
+    rawTx = data['rawtx']
+    prevTxs = data['prevtxs']
+    sigHashType = data['sighashtype']
+    signingKey = data['key']
+
+    try:
+        signedTx, complete = ctrl.Sign(rawTx, prevTxs, sigHashType, signingKey)
+        result = {'hex': signedTx, 'complete': complete}
+        code = 200
+
+    except KeyAlreadyUsed:
+        result = {'error': 'key already used'}
+        code = 403
+
+    except KeyUnknown:
+        result = {'error': 'unknown key'}
+        code = 403
+
+    except InvalidScript:
+        result = {'error': 'invalid request'}
+        code = 403
+
+    return make_response(jsonify(result), code)

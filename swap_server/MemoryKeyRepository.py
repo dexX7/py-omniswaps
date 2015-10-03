@@ -5,8 +5,7 @@ from KeyRepository import KeyRepository, KeyAlreadyUsed, KeyUnknown, InvalidScri
 class MemoryKeyRepository(KeyRepository):
 
     def __init__(self, rpcServer):
-        """
-        Creates a new instance.
+        """Creates a new instance.
 
         :param AuthServiceProxy rpcServer: the RPC connection
         """
@@ -20,8 +19,7 @@ class MemoryKeyRepository(KeyRepository):
     #
 
     def storePubKey(self, newPubKey, pubKeyHash):
-        """
-        Stores a new public key.
+        """Stores a new public key.
 
         :param str newPubKey:  the public key to store
         :param str pubKeyHash: the corresponding pubkey-hash
@@ -32,8 +30,7 @@ class MemoryKeyRepository(KeyRepository):
         self.keyToHash[newPubKey] = pubKeyHash
 
     def markKeyDirty(self, usedPubKey):
-        """
-        Marks a public key as used.
+        """Marks a public key as used.
 
         :param str usedPubKey: the used public key
         """
@@ -43,21 +40,17 @@ class MemoryKeyRepository(KeyRepository):
         self.keysUsed.append(usedPubKey)
 
     def isKeyUsed(self, pubKey):
-        """
-        Checks whether the public key is unused.
+        """Checks whether the public key is unused.
 
         :param str pubKey: the public key to check
-
         :returns bool: whether the key was not used before
         """
         return pubKey in self.keysUsed
 
     def isKeyUnused(self, pubKey):
-        """
-        Checks whether the public key is unused.
+        """Checks whether the public key is unused.
 
         :param str pubKey: the public key to check
-
         :returns bool: whether the key was not used before
         """
         return pubKey in self.keysUnused
@@ -67,8 +60,7 @@ class MemoryKeyRepository(KeyRepository):
     #
 
     def GetNextPubKey(self):
-        """
-        Generates and stores a new key-pair.
+        """Generates and stores a new key-pair.
 
         :returns str: an unused public key
         """
@@ -86,14 +78,12 @@ class MemoryKeyRepository(KeyRepository):
     #
 
     def SignTransaction(self, rawTx, vIns, sigHashType, signingKey):
-        """
-        Signs a raw transaction.
+        """Signs a raw transaction.
 
         :param str  rawTx:       the raw transaction to sign
         :param list vIns:        the transaction inputs, including scriptPubKey and redeemScript
         :param str  sigHashType: the signature hash type
         :param str  signingKey:  the key used to sign the transaction
-
         :returns: the signed raw transaction
         """
         if self.isKeyUsed(signingKey):
@@ -110,11 +100,9 @@ class MemoryKeyRepository(KeyRepository):
         return result['hex'], result['complete']
 
     def retrieveKey(self, pubKey):
-        """
-        Retrieves a private key corresponding to the given public key.
+        """Retrieves a private key corresponding to the given public key.
 
         :param str pubKey: the public key for the key lookup
-
         :return str: the corresponding private key
         """
         assert pubKey in self.keyToHash
@@ -123,13 +111,11 @@ class MemoryKeyRepository(KeyRepository):
         return privKey
 
     def checkTx(self, rawTx, vIns, pubKey):
-        """
-        Verifies transaction and scripts.
+        """Verifies transaction and scripts.
 
         :param str  rawTx:  the raw transaction to sign
         :param list vIns:   the transaction inputs, including scriptPubKey and redeemScript
         :param str  pubKey: the key going to be used
-
         :returns bool: whether transaction should be signed
         """
         try:

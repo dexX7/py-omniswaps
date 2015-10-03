@@ -1,8 +1,8 @@
-from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+from bitcoinrpc.authproxy import AuthServiceProxy
 import config
 
-rpc_connection = AuthServiceProxy('http://%s:%s@%s:%d' % (config.RPC_USER,
-    config.RPC_PASSWORD, config.RPC_CONNECT, config.RPC_PORT))
+rpc_connection = AuthServiceProxy(
+    'http://%s:%s@%s:%d' % (config.RPC_USER, config.RPC_PASSWORD, config.RPC_CONNECT, config.RPC_PORT))
 
 
 def getinfo():

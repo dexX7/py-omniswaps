@@ -8,12 +8,17 @@ from controller import Controller
 ctrl = Controller()
 
 
+def respond(result, code):
+    print(result)
+    return make_response(jsonify(result), code)
+
+
 @app.errorhandler(404)
 def not_found_error(error):
     result = {'error': 'not found'}
     code = 404
 
-    return make_response(jsonify(result), code)
+    return respond(result, code)
 
 
 @app.errorhandler(500)
@@ -21,7 +26,7 @@ def internal_error(error):
     result = {'error': 'internal server error'}
     code = 500
 
-    return make_response(jsonify(result), code)
+    return respond(result, code)
 
 
 @app.route('/getpubkey')
@@ -30,7 +35,7 @@ def getpubkey():
     result = {'pubkey': pubKey}
     code = 200
 
-    return make_response(jsonify(result), code)
+    return respond(result, code)
 
 
 @app.route('/sign', methods=['POST'])
@@ -41,7 +46,7 @@ def sign():
         result = {'error': 'malformed request'}
         code = 400
 
-        return make_response(jsonify(result), code)
+        return respond(result, code)
 
     rawTx = data['rawtx']
     prevTxs = data['prevtxs']
@@ -65,7 +70,7 @@ def sign():
         result = {'error': 'invalid request'}
         code = 403
 
-    return make_response(jsonify(result), code)
+    return respond(result, code)
 
 
 @app.route('/')

@@ -31,9 +31,14 @@ def internal_error(error):
 
 @app.route('/getpubkey')
 def getpubkey():
-    pubKey = ctrl.GetNextPubKey()
-    result = {'pubkey': pubKey}
-    code = 200
+    try:
+        pubKey = ctrl.GetNextPubKey()
+        result = {'pubkey': pubKey}
+        code = 200
+
+    except:
+        result = {'error': 'internal server error'}
+        code = 500
 
     return respond(result, code)
 
@@ -69,6 +74,10 @@ def sign():
     except InvalidScript:
         result = {'error': 'invalid request'}
         code = 403
+
+    except:
+        result = {'error': 'internal server error'}
+        code = 500
 
     return respond(result, code)
 

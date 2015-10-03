@@ -58,3 +58,6 @@ target/
 
 # Startup helper
 *.bat
+
+# Idea
+**/.idea/

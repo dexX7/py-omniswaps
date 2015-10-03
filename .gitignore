@@ -61,3 +61,6 @@ target/
 
 # Idea
 **/.idea/
+
+# Logging
+**/logs/

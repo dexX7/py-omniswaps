@@ -1,7 +1,8 @@
-import simplejson
 import sys
+from api import request_pubkey
 from server import *
-from api import request_pubkey, request_sign
+from util import print_json
+
 
 def CreatePubKey():
     """
@@ -49,9 +50,6 @@ def CreateDestination(pubKeyUser):
 #responseSign = request_sign(rawTx, prevTxs, sigHashType, signingKey)
 #print(responseSign)
 
-def print_json(parsed):
-    print(simplejson.dumps(parsed, indent=2))
-
 
 def help():
     print("atomic_create_destination pubkey\n")
@@ -68,7 +66,6 @@ def main():
     if len(sys.argv) < 1 or len(sys.argv) > 2 or str(sys.argv[1]) == 'help':
         help()
 
-    pubKey = ''
     if len(sys.argv) > 1:
         pubKey = str(sys.argv[1])
     else:

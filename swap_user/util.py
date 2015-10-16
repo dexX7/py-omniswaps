@@ -1,5 +1,5 @@
 import simplejson
 
 
-def print_json(parsed):
+def printJson(parsed):
     print(simplejson.dumps(parsed, indent=2))

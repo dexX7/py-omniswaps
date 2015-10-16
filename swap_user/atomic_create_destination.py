@@ -42,9 +42,10 @@ def CreateDestination(pubKeyUser):
     """
     responsePK = requestPubkey()
     pubKeyServer = responsePK['pubkey']
-    print('public key user:   %s' % pubKeyUser)
-    print('public key server: %s' % pubKeyServer)
-    return CreateMultisig([pubKeyUser, pubKeyServer])
+    return {
+        'destination': CreateMultisig([pubKeyUser, pubKeyServer]),
+        'identifier' : pubKeyServer
+    }
 
 
 def help():

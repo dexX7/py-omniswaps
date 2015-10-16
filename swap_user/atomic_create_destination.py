@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 from api import request_pubkey
 from server import *

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import sys
-from api import request_pubkey
+from api import requestPubkey
 from server import *
-from util import print_json
+from util import printJson
 
 
 def CreatePubKey():
@@ -17,6 +17,8 @@ def CreatePubKey():
 def CreateMultisig(pubKeys):
     """
     Creates a multisig script destination with the given keys.
+
+    :param list pubKeys: the keys used for the multisig script
     """
     pubKeys = sorted(pubKeys)
     responseCreate = createmultisig(len(pubKeys), pubKeys)
@@ -35,36 +37,32 @@ def CreateMultisig(pubKeys):
 def CreateDestination(pubKeyUser):
     """
     Creates a script locked 2-of-2 multisig destination.
+
+    :param str pubKeyUser: the user's public key
     """
-    responsePK = request_pubkey()
+    responsePK = requestPubkey()
     pubKeyServer = responsePK['pubkey']
     print('public key user:   %s' % pubKeyUser)
     print('public key server: %s' % pubKeyServer)
     return CreateMultisig([pubKeyUser, pubKeyServer])
 
 
-#rawTx = '01000000000000000000'
-#prevTxs = []
-#sigHashType = 'NONE|ANYONECANPAY'
-#signingKey = responsePK['pubkey']
-
-#responseSign = request_sign(rawTx, prevTxs, sigHashType, signingKey)
-#print(responseSign)
-
-
 def help():
-    print("atomic_create_destination pubkey\n")
+    print("atomic_create_destination ( pubkey )\n")
     print("Creates script locked 2-of-2 multisig destination.\n")
+    print("If no public key is provided, a new key-pair will be generated for the user.\n")
     print("Arguments:")
     print("1. pubkey    (string, optional) the user's public key\n")
     print("Examples:")
-    print("atomic_create_destination")
-    print("atomic_create_destination 032c6d9e8c65b62b4f8e8396a7687830590fad2a4bebde5d6be5b7d3d9f0019cc1")
+    print("./atomic_create_destination.py")
+    print("./atomic_create_destination.py 032c6d9e8c65b62b4f8e8396a7687830590fad2a4bebde5d6be5b7d3d9f0019cc1")
     exit()
 
 
 def main():
-    if len(sys.argv) < 1 or len(sys.argv) > 2 or str(sys.argv[1]) == 'help':
+    if len(sys.argv) < 1 or len(sys.argv) > 2:
+        help()
+    if len(sys.argv) > 1 and 'help' in str(sys.argv[1]):
         help()
 
     if len(sys.argv) > 1:
@@ -73,7 +71,7 @@ def main():
         pubKey = CreatePubKey()
 
     result = CreateDestination(pubKey)
-    print_json(result)
+    printJson(result)
 
 
 if __name__ == "__main__":

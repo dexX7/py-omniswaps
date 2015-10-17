@@ -1,4 +1,5 @@
 import config
+import decimal
 from bitcoinrpc.authproxy import AuthServiceProxy
 
 rpc_connection = AuthServiceProxy('http://%s:%s@%s:%d' % (config.RPC_USER,
@@ -6,7 +7,6 @@ rpc_connection = AuthServiceProxy('http://%s:%s@%s:%d' % (config.RPC_USER,
 
 
 def EncodeDecimal(o):
-    import decimal
     if isinstance(o, decimal.Decimal):
         return round(o, 8)
     raise TypeError(repr(o) + " is not JSON serializable (my!)")
@@ -77,3 +77,8 @@ def omni_setautocommit(flag):
 def omni_send(from_address, to_address, token_id, amount, reference='0.01', redeem=''):
     return rpc_connection.omni_send(
         from_address, to_address, token_id, amount, redeem, reference)
+
+
+def omni_createrawtx_reference(rawTx, destination, amount):
+    amount = decimal.Decimal(amount)
+    return rpc_connection.omni_createrawtx_reference(rawTx, destination, amount)

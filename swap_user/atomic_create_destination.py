@@ -37,7 +37,7 @@ def CreateMultisig(pubKeys):
     return result
 
 
-def CreateDestination(pubKeyUser):
+def CreateDestination(pubKeyUser=None):
     """
     Creates a script locked 2-of-2 multisig destination.
 

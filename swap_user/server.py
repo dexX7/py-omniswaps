@@ -74,6 +74,6 @@ def omni_setautocommit(flag):
     return rpc_connection.omni_setautocommit(flag)
 
 
-def omni_send(from_address, to_address, token_id, amount, reference='0.0', redeem=''):
+def omni_send(from_address, to_address, token_id, amount, reference='0.01', redeem=''):
     return rpc_connection.omni_send(
         from_address, to_address, token_id, amount, redeem, reference)

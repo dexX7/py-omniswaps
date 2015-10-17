@@ -1,126 +1,39 @@
-#!/usr/bin/env
+#!/usr/bin/env python
 import sys
-import decimal
-import simplejson
 
-import builder
-from atomic_create_destination import CreatePubKey, CreateDestination
-from server import *
-from api import requestSigned
-
-
-def print_json(parsed):
-    print(simplejson.dumps(parsed, indent=2))
+from atomic_create_destination import CreateDestination
+from atomic_create_payout import AddPayout
+from atomic_prepare_funding import PrepareFunding
+from atomic_sign import GetSignedStub
+from util import printJson
 
 
-def request_destination(from_address):
-    pubkey = CreatePubKey()
-
-    return CreateDestination(pubkey)['destination']
-
-
-def find_funding_out(destination, tx):
-    for vout in tx['vout']:
-        if 'scriptPubKey' not in vout:
-            continue
-        if 'addresses' not in vout['scriptPubKey']:
-            continue
-        if destination['address'] in vout['scriptPubKey']['addresses']:
-            return vout['n']
-
-    raise Exception('invalid vout')
-
-
-def get_stub(destination, tx):
-    vout = find_funding_out(destination, tx)
-    print('\nFunding vout:')
-    print(vout)
-    stub = requestSigned(
-        tx['txid'], vout,
-        destination['scriptPubKey'],
-        destination['redeemScript']
-    )
-    print('requestSigned:')
-    print(stub)
-
-    return stub
-
-
-def sign_payout(rawtx, destination, funding):
-    vout = find_funding_out(destination, funding)
-    signed = signrawtransaction(
-        rawtx=rawtx,
-        vins=[{
-            'txid': funding['txid'], 'vout': vout,
-            'scriptPubKey': destination['scriptPubKey'],
-            'redeemScript': destination['redeemScript']
-        }],
-        sighashtype='SINGLE|ANYONECANPAY'
-    )
-
-    return signed['hex']
-
-
-def get_signed_payout(blob, to_address, amount):
-    stub = blob['stub']
-    funding = blob['funding']
-    destination = blob['destination']
-
-    rawtx = stub['hex']
-    rawtx = builder.outaddr(rawtx, amount, to_address)
-    rawtx = sign_payout(rawtx, destination, funding)
-
-    decoded = decoderawtransaction(rawtx)
-    decoded['hex'] = rawtx
-
-    return decoded
-
-
-def prepare_funding(from_address, to_destination, token_id, amount):
-    omni_setautocommit(False)
-    rawtx = omni_send(from_address, to_destination, token_id, amount)
-    omni_setautocommit(True)
-
-    decoded = decoderawtransaction(rawtx)
-    decoded['hex'] = rawtx
-
-    return decoded
-
-
-def prepare_initial(from_address, token_id, amount):
-    destination = request_destination(from_address)
+def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
+    destination = CreateDestination()
     print('\nDestination:')
-    print(destination)
-    tx = prepare_funding(from_address, destination['address'], token_id, amount)
-    print('\nTransaction:')
-    print(tx)
-    stub = get_stub(destination, tx)
-    print('\nStub:')
-    print(stub)
+    printJson(destination)
 
-    exit()
+    destinationAddress = destination['destination']['address']
 
-    result = {'destination': destination, 'funding': tx, 'stub': stub}
-    return result
+    fundingTx = PrepareFunding(fromAddress, destinationAddress, tokenId, amountForSale)
+    print('\nFunding transaction:')
+    printJson(fundingTx)
 
+    txid = fundingTx['output']['txid']
+    vout = fundingTx['output']['vout']
+    scriptPubKey = fundingTx['output']['scriptPubKey']
+    redeemScript = destination['destination']['redeemScript']
+    signingKey = destination['identifier']
 
-def prepare_offer(from_address, token_id, amount, desired):
-    blob = prepare_initial(from_address, token_id, amount)
-    blob['payment'] = get_signed_payout(blob, from_address, desired)
+    signedStubTx = GetSignedStub(txid, vout, scriptPubKey, redeemScript, signingKey)
+    print('\nStub transaction:')
+    printJson(signedStubTx)
 
-    return blob
+    payoutStubTx = AddPayout(signedStubTx['hex'], destinationAddress, amountDesired)
+    print('\nPayout stub transaction:')
+    printJson(payoutStubTx)
 
-
-def print_blob_detail(blob):
-    print_json(blob)
-
-
-def print_blob(blob):
-    blob = {
-        'funding':blob['funding']['hex'],
-        'payment':blob['payment']['hex']
-    }
-    print_json(blob)
+    return payoutStubTx
 
 
 def help():
@@ -132,20 +45,25 @@ def help():
 
 
 def main():
-    if len(sys.argv) < 5 or len(sys.argv) > 6:
+    if len(sys.argv) > 1 and 'help' in str(sys.argv[1]):
+        help()
+    if len(sys.argv) != 5:
         help()
 
-    address = str(sys.argv[1])
-    tokenid = long(sys.argv[2])
-    amount = str(sys.argv[3])
-    desired = decimal.Decimal(sys.argv[4])
+    fromAddress = str(sys.argv[1])
+    tokenId = long(sys.argv[2])
+    amountForSale = str(sys.argv[3])
+    amountDesired = str(sys.argv[4])
 
-    offer = prepare_offer(address, tokenid, amount, desired)
+    print("\nRequest:")
+    print("  fromAddress:   " + fromAddress)
+    print("  tokenId:       " + str(tokenId))
+    print("  amountForSale: " + amountForSale)
+    print("  amountDesired: " + amountDesired)
+    print("\nResponse:")
 
-    if len(sys.argv) > 5:
-        print_blob_detail(offer)
-    else:
-        print_blob(offer)
+    result = CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired)
+    # printJson(result)
 
 
 if __name__ == "__main__":

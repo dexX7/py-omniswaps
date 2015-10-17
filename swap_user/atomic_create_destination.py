@@ -11,6 +11,7 @@ def CreatePubKey():
     """
     pubKeyHash = getnewaddress()
     result = validateaddress(pubKeyHash)
+
     return result['pubkey']
 
 
@@ -24,6 +25,7 @@ def CreateMultisig(pubKeys):
     responseCreate = createmultisig(len(pubKeys), pubKeys)
     responseScript = decodescript(responseCreate['redeemScript'])
     addmultisigaddress(len(pubKeys), pubKeys)
+
     result = {
         'address': responseScript['p2sh'],
         'pubkeys': pubKeys,
@@ -31,6 +33,7 @@ def CreateMultisig(pubKeys):
         'reqSigs': responseScript['reqSigs'],
         'type': responseScript['type'],
     }
+
     return result
 
 
@@ -38,10 +41,14 @@ def CreateDestination(pubKeyUser):
     """
     Creates a script locked 2-of-2 multisig destination.
 
-    :param str pubKeyUser: the user's public key
+    :param str pubKeyUser: the user's public key (if None, then a new key-pair is created)
     """
+    if pubKeyUser is None:
+        pubKeyUser = CreatePubKey()
+
     responsePK = requestPubkey()
     pubKeyServer = responsePK['pubkey']
+
     return {
         'destination': CreateMultisig([pubKeyUser, pubKeyServer]),
         'identifier' : pubKeyServer
@@ -66,10 +73,9 @@ def main():
     if len(sys.argv) < 1 or len(sys.argv) > 2:
         help()
 
+    pubKey = None
     if len(sys.argv) > 1:
         pubKey = str(sys.argv[1])
-    else:
-        pubKey = CreatePubKey()
 
     result = CreateDestination(pubKey)
     printJson(result)

@@ -4,9 +4,9 @@ import decimal
 import simplejson
 
 import builder
+from atomic_create_destination import CreatePubKey, CreateDestination
 from server import *
-from controller import getpubkey
-from api import request_shared, request_signed
+from api import requestSigned
 
 
 def print_json(parsed):
@@ -14,11 +14,9 @@ def print_json(parsed):
 
 
 def request_destination(from_address):
-    pubkey = getpubkey(from_address)
-    destination = request_shared(pubkey)
-    addmultisigaddress(len(destination['pubkeys']), destination['pubkeys'])
+    pubkey = CreatePubKey()
 
-    return destination
+    return CreateDestination(pubkey)['destination']
 
 
 def find_funding_out(destination, tx):
@@ -35,11 +33,15 @@ def find_funding_out(destination, tx):
 
 def get_stub(destination, tx):
     vout = find_funding_out(destination, tx)
-    stub = request_signed(
+    print('\nFunding vout:')
+    print(vout)
+    stub = requestSigned(
         tx['txid'], vout,
         destination['scriptPubKey'],
         destination['redeemScript']
     )
+    print('requestSigned:')
+    print(stub)
 
     return stub
 
@@ -87,8 +89,16 @@ def prepare_funding(from_address, to_destination, token_id, amount):
 
 def prepare_initial(from_address, token_id, amount):
     destination = request_destination(from_address)
+    print('\nDestination:')
+    print(destination)
     tx = prepare_funding(from_address, destination['address'], token_id, amount)
+    print('\nTransaction:')
+    print(tx)
     stub = get_stub(destination, tx)
+    print('\nStub:')
+    print(stub)
+
+    exit()
 
     result = {'destination': destination, 'funding': tx, 'stub': stub}
     return result
@@ -118,7 +128,6 @@ def help():
     print("Prepares a signed transaction for an atomic swap.\n")
     print("Example:")
     print("atomic_create_offer muPnbit6RgucdziK5RsRhUueuhpkEvLk4t 2 10.0 1.0")
-
     exit()
 
 

@@ -61,9 +61,9 @@ def help():
 
 
 def main():
-    if len(sys.argv) < 1 or len(sys.argv) > 2:
-        help()
     if len(sys.argv) > 1 and 'help' in str(sys.argv[1]):
+        help()
+    if len(sys.argv) < 1 or len(sys.argv) > 2:
         help()
 
     if len(sys.argv) > 1:

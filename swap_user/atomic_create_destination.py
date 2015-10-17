@@ -48,22 +48,23 @@ def CreateDestination(pubKeyUser):
 
     responsePK = requestPubkey()
     pubKeyServer = responsePK['pubkey']
+    destination = CreateMultisig([pubKeyUser, pubKeyServer])
 
     return {
-        'destination': CreateMultisig([pubKeyUser, pubKeyServer]),
-        'identifier' : pubKeyServer
+        'destination': destination,
+        'identifier': pubKeyServer
     }
 
 
 def help():
-    print("atomic_create_destination ( pubkey )\n")
-    print("Creates script locked 2-of-2 multisig destination.\n")
-    print("If no public key is provided, a new key-pair will be generated for the user.\n")
-    print("Arguments:")
-    print("1. pubkey    (string, optional) the user's public key\n")
-    print("Examples:")
-    print("./atomic_create_destination.py")
-    print("./atomic_create_destination.py 032c6d9e8c65b62b4f8e8396a7687830590fad2a4bebde5d6be5b7d3d9f0019cc1")
+    print('atomic_create_destination ( pubkey )\n')
+    print('Creates script locked 2-of-2 multisig destination.\n')
+    print('If no public key is provided, a new key-pair will be generated for the user.\n')
+    print('Arguments:')
+    print('1. pubkey    (string, optional) the user\'s public key\n')
+    print('Examples:')
+    print('./atomic_create_destination.py')
+    print('./atomic_create_destination.py 032c6d9e8c65b62b4f8e8396a7687830590fad2a4bebde5d6be5b7d3d9f0019cc1')
     exit()
 
 

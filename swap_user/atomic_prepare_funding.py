@@ -5,9 +5,10 @@ import server
 from util import printJson
 
 
-def findFundingOutput(destination, rawTx):
-    tx = server.decoderawtransaction(rawTx)
-    for vout in tx['vout']:
+def FindFundingOutput(destination, rawTx):
+    decodedTx = server.decoderawtransaction(rawTx)
+
+    for vout in decodedTx['vout']:
         if 'scriptPubKey' not in vout:
             continue
         if 'addresses' not in vout['scriptPubKey']:
@@ -16,7 +17,7 @@ def findFundingOutput(destination, rawTx):
             continue
 
         result = {
-            'txid': tx['txid'],
+            'txid': decodedTx['txid'],
             'vout': vout['n'],
             'scriptPubKey': vout['scriptPubKey']['hex']
         }
@@ -30,7 +31,7 @@ def PrepareFunding(fromAddress, destination, tokenId, amount):
     rawTx = server.omni_send(fromAddress, destination, tokenId, amount)
     server.omni_setautocommit(True)
 
-    fundingOutput = findFundingOutput(destination, rawTx)
+    fundingOutput = FindFundingOutput(destination, rawTx)
     result = {
         'hex': rawTx,
         'output': fundingOutput

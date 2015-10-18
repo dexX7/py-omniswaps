@@ -54,7 +54,7 @@ def help():
     print('3. forsale   (string, optional) the amount of tokens to swap')
     print('4. desired   (string, optional) the amount of coins desired in exchange\n')
     print('Example:')
-    print('./atomic_create_offer.py \"mffphSgNTrXAF2dZMQTdkVWXbjAJkWD4VU\" 2 \"10.0\" \"1.0\"')
+    print('./atomic_create_offer.py \"mhtjwKYNZcvLbrvtvNVb4hTYDbfKgoCTx9\" 2 \"10.0\" \"1.0\"')
     exit()
 
 

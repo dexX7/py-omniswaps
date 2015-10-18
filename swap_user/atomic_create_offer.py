@@ -29,7 +29,7 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     print('\nStub transaction:')
     printJson(signedStubTx)
 
-    payoutStubTx = AddPayout(signedStubTx['hex'], destinationAddress, amountDesired)
+    payoutStubTx = AddPayout(signedStubTx['hex'], fromAddress, amountDesired)
     print('\nPayout stub transaction:')
     printJson(payoutStubTx)
 
@@ -37,10 +37,15 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
 
 
 def help():
-    print("atomic_create_offer address tokenid forsale desired\n")
-    print("Prepares a signed transaction for an atomic swap.\n")
-    print("Example:")
-    print("atomic_create_offer muPnbit6RgucdziK5RsRhUueuhpkEvLk4t 2 10.0 1.0")
+    print('atomic_create_offer address tokenid forsale desired\n')
+    print('Prepares a signed transaction for an atomic swap.\n')
+    print('Arguments:')
+    print('1. address   (string, optional) the source for the tokens')
+    print('3. tokenid   (string, optional) the identifier of the tokens to swap')
+    print('3. forsale   (string, optional) the amount of tokens to swap')
+    print('4. desired   (string, optional) the amount of coins desired in exchange\n')
+    print('Example:')
+    print('./atomic_create_offer.py \"mffphSgNTrXAF2dZMQTdkVWXbjAJkWD4VU\" 2 \"10.0\" \"1.0\"')
     exit()
 
 

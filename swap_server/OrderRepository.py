@@ -19,6 +19,14 @@ class OrderRepository:
         """
         return NotImplemented
 
+    def ListOrders(self):
+        """
+        Returns a list of orders.
+
+        :returns: the orders
+        """
+        return NotImplemented
+
     def AddOrder(self, order):
         """
         Adds an order to the orderbook.

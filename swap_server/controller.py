@@ -20,6 +20,9 @@ class Controller:
     def GetOrder(self, orderId):
         return self.orders.GetOrder(orderId)
 
+    def ListOrders(self):
+        return self.orders.ListOrders()
+
     def AddOrder(self, order):
         return self.orders.AddOrder(order)
 

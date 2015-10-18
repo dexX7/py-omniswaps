@@ -46,12 +46,13 @@ def requestGetOrders():
     return r.json()
 
 
-def requestAddOrder(order):
+def requestAddOrder(rawTx, prevTxs):
     headers = {
         'Content-Type': 'application/json'
     }
     data = {
-        'order': order
+        'rawtx': rawTx,
+        'prevtxs': prevTxs
     }
     url = '%s/addorder' % config.API_ENDPOINT_WEB
     r = requests.post(url, data=json.dumps(data), headers=headers)
@@ -63,7 +64,7 @@ def requestRemoveOrder(orderId):
         'Content-Type': 'application/json'
     }
     data = {
-        'orderId': orderId
+        'identifier': orderId
     }
     url = '%s/removeorder' % config.API_ENDPOINT_WEB
     r = requests.post(url, data=json.dumps(data), headers=headers)

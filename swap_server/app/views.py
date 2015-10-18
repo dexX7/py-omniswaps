@@ -110,6 +110,19 @@ def getorder(orderId):
     return respond(result, code)
 
 
+@app.route('/getorders')
+def getorders():
+    try:
+        result = ctrl.ListOrders()
+        code = 200
+
+    except:
+        result = {'error': 'internal server error'}
+        code = 500
+
+    return respond(result, code)
+
+
 @app.route('/addorder', methods=['POST'])
 def addorder():
     data = request.get_json()

@@ -6,12 +6,22 @@ from util import printJson
 
 
 def AddPayout(rawTx, destination, amount):
+    """
+    Adds a payout output to the stub transaction.
+    """
     result = server.omni_createrawtx_reference(rawTx, destination, amount)
     return result
 
 
-def SealStub(rawTx):
-    result = server.signrawtransaction(rawTx)  # TODO: add prevTxs etc.
+def SealPayout(rawTx, txid, vout, scriptPubKey, redeemScript):
+    """
+    Seals and signs the stub transaction with payout.
+
+    The transaction information must refer to the transaction input.
+    """
+    prevTxs = [{'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript}]
+    sigHashType = 'SINGLE|ANYONECANPAY'
+    result = server.signrawtransaction(rawTx, prevTxs, None, sigHashType)
     return result
 
 

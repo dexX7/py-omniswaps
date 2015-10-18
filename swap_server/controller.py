@@ -23,8 +23,8 @@ class Controller:
     def ListOrders(self):
         return self.orders.ListOrders()
 
-    def AddOrder(self, order):
-        return self.orders.AddOrder(order)
+    def AddOrder(self, rawTx, prevTxs):
+        return self.orders.AddOrder(rawTx, prevTxs)
 
     def RemoveOrder(self, orderId):
         return self.orders.RemoveOrder(orderId)

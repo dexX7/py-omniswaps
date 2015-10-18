@@ -132,10 +132,11 @@ def addorder():
 
         return respond(result, code)
 
-    order = data['order']
+    rawTx = data['rawtx']
+    prevTxs = data['prevtxs']
 
     try:
-        orderId = ctrl.AddOrder(order)
+        orderId = ctrl.AddOrder(rawTx, prevTxs)
         result = {'identifier': orderId}
         code = 201
 

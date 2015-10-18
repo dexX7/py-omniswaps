@@ -44,6 +44,21 @@ class TestMemoryKeyRepository(unittest.TestCase):
         with self.assertRaises(OrderNotFound):
             orderBook.GetOrder(orderId)
 
+    def test_ListOrdersEmpty(self):
+        orderBook = MemoryOrderRepository(self.rpcServer)
+
+        orders = orderBook.ListOrders()
+        self.assertEqual(0, len(orders))
+
+    def test_ListOrders(self):
+        orderBook = MemoryOrderRepository(self.rpcServer)
+        order = self.getTestOrder()
+
+        orderId = orderBook.AddOrder(order['order'])
+        orders = orderBook.ListOrders()
+        self.assertEqual(1, len(orders))
+        self.assertIn(orderId, orders)
+
     def test_RemoveOrder(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()

@@ -18,24 +18,25 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['order'])
-        self.assertEqual(order['orderId'], orderId)
+        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
+        self.assertEqual(order['id'], orderId)
 
     def test_AddOrderAlreadyExists(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderBook.AddOrder(order['order'])
+        orderBook.AddOrder(order['hex'], order['prevtxs'])
         with self.assertRaises(OrderAlreadyExists):
-            orderBook.AddOrder(order['order'])
+            orderBook.AddOrder(order['hex'], order['prevtxs'])
 
     def test_GetOrder(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['order'])
+        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
         orderRetrieved = orderBook.GetOrder(orderId)
-        self.assertEqual(order['order'], orderRetrieved)
+        self.assertEqual(order['hex'], orderRetrieved['hex'])
+        self.assertEqual(order['prevtxs'], orderRetrieved['prevtxs'])
 
     def test_GetOrderNotFound(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
@@ -54,7 +55,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['order'])
+        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
         orders = orderBook.ListOrders()
         self.assertEqual(1, len(orders))
         self.assertIn(orderId, orders)
@@ -63,9 +64,10 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['order'])
+        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
         orderRetrieved = orderBook.GetOrder(orderId)
-        self.assertEqual(order['order'], orderRetrieved)
+        self.assertEqual(order['hex'], orderRetrieved['hex'])
+        self.assertEqual(order['prevtxs'], orderRetrieved['prevtxs'])
 
         self.assertTrue(orderBook.RemoveOrder(orderId))
         with self.assertRaises(OrderNotFound):
@@ -79,16 +81,23 @@ class TestMemoryKeyRepository(unittest.TestCase):
             orderBook.RemoveOrder(orderId)
 
     def getTestOrder(self):
-        orderId = '66f30dd1b38dd1eab53fb3418a8315c26ef84ea3e12bad666862945cf92c8772'
-        order = '0100000001d1dc83f036909cfb4fa285aa2c9449ecb8f4112f5705b1882263882c155b6eb301000000da004830450221008f' \
-                '17801836021dc67797fe03aff3ef4e1a1c75673ebd2ae273f04103c65c88ba0220212449fa8632604e2e81cecd42fdf3bc27' \
-                '5c0af4f75735b77dcfdbade0e69df083473044022005d88f476af7e165b30952c3f24a6c91d8f36e6a2766daabed024f64ee' \
-                'ab3c3302207b84e60b2202b07d469eb957a628daf65328db9f6f9b058927bea56145645b7282475221037d65bd0df8669bec' \
-                '8d2516ae9e6fd98b5ec12b28fcba9cd100e71586ad8fd37d2103919026a74a653c6f28277097528e935c567027b84621d52c' \
-                '6e58e0a9cc33fb9c52aeffffffff0100e1f505000000001976a91401ad66f81d5f4ef6e61ba4c34818de3899bf2e6788ac00' \
-                '000000'
+        orderId = '3d9c7c0925ca1b127b4fe5e3a2d9ed1fe83c012ffa2e164703eed8ec7b3f443e'
+        orderTx = '0100000001c14dc37264f069921d4b268fbd866d60afbe5394696750661e75543657cf527d01000000da00483045022100' \
+                  'bbeb5ebb9c55c85e940b9a09b32866db707ce81660df4d3531e160058fb1bfc5022025eb910934c4a7726d95d0286fd08d' \
+                  '4ce3d4261d3be9189b1d211ddb1aefd76982473044022032ee848b0c11e66c898ba9136a6b094fa235bd8e37ca5abf63e7' \
+                  '51790b10bc43022065f20e84a4bc6f0f4392a9fdccdedf7919280774f76e8606ce1709dc609cfbf2834752210264d720ad' \
+                  'bc4f59737dff2961c9fd94df94652b13636bd68e1996e28bf2a15afd2103ad4bb225c401c645fffad95679dd0f8d3fab1f' \
+                  'b24a59f81c30299d807312584752aeffffffff0100e1f505000000001976a91401ad66f81d5f4ef6e61ba4c34818de3899' \
+                  'bf2e6788ac00000000'
+        prevTxs = [{
+            'txid': '7d52cf573654751e665067699453beaf606d86bd8f264b1d9269f06472c34dc1',
+            'vout': 1,
+            'scriptPubKey': 'a914cf91f8438874f5e0dc1ade63b97210472c494d5d87',
+            'redeemScript': '52210264d720adbc4f59737dff2961c9fd94df94652b13636bd68e1996e28bf2a15afd2103ad4bb225c401c645'
+                            'fffad95679dd0f8d3fab1fb24a59f81c30299d807312584752ae'
+          }]
 
-        return {'orderId': orderId, 'order': order}
+        return {'id': orderId, 'hex': orderTx, 'prevtxs': prevTxs}
 
 
 if __name__ == '__main__':

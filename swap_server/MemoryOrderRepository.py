@@ -32,11 +32,12 @@ class MemoryOrderRepository(OrderRepository):
         """
         return self.orders
 
-    def AddOrder(self, order):
+    def AddOrder(self, order, prevTxs):
         """
         Adds an order to the orderbook.
 
         :param str order: the order to add
+        :param obj prevTxs: the transaction inputs
         :returns: the order identifier
         """
         orderId = self.getOrderId(order)
@@ -44,7 +45,7 @@ class MemoryOrderRepository(OrderRepository):
         if orderId in self.orders:
             raise OrderAlreadyExists
 
-        self.orders[orderId] = order
+        self.orders[orderId] = self.makeOrder(order, prevTxs)
 
         return orderId
 
@@ -66,5 +67,12 @@ class MemoryOrderRepository(OrderRepository):
         decoded = self.rpc.decoderawtransaction(order)  # TODO: catch failure
 
         return decoded['txid']
+
+    @staticmethod
+    def makeOrder(order, prevTxs):
+        return {
+            'hex': order,
+            'prevtxs': prevTxs
+        }
 
     # TODO: actually check order

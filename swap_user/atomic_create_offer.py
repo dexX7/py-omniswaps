@@ -2,8 +2,9 @@
 import sys
 
 from atomic_create_destination import CreateDestination
-from atomic_create_payout import AddPayout
+from atomic_create_payout import AddPayout, SealPayout
 from atomic_prepare_funding import PrepareFunding
+from atomic_publish_order import PublishOrder
 from atomic_sign import GetSignedStub
 from util import printJson
 
@@ -33,7 +34,15 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     print('\nPayout stub transaction:')
     printJson(payoutStubTx)
 
-    return payoutStubTx
+    signedPayoutStubTx = SealPayout(payoutStubTx, txid, vout, scriptPubKey, redeemScript)
+    print('\nSigned payout stub:')
+    printJson(signedPayoutStubTx)
+
+    orderId = PublishOrder(signedPayoutStubTx)
+    print('\nOrder identifier:')
+    printJson(orderId)
+
+    return orderId
 
 
 def help():

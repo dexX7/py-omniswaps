@@ -24,6 +24,14 @@ class MemoryOrderRepository(OrderRepository):
 
         return self.orders[orderId]
 
+    def ListOrders(self):
+        """
+        Returns a list of orders.
+
+        :returns: the orders
+        """
+        return self.orders
+
     def AddOrder(self, order):
         """
         Adds an order to the orderbook.

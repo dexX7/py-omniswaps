@@ -41,7 +41,7 @@ def PrepareFunding(fromAddress, destination, tokenId, amount):
 
 
 def help():
-    print('atomic_prepare_funding ddress destination tokenid amount\n')
+    print('atomic_prepare_funding address destination tokenid amount\n')
     print('Prepares a raw transaction to fund a script locked destination.\n')
     print('Arguments:')
     print('1. address       (string, optional) the source for the tokens')

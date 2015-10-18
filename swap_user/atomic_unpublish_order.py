@@ -16,7 +16,7 @@ def help():
     print('atomic_unpublish_order orderid\n')
     print('Unpublishes an order.\n')
     print('Arguments:')
-    print('1. orderid   (string, required) the identifier of the order')
+    print('1. orderid   (string, required) the identifier of the order\n')
     print('Example:')
     print('./atomic_unpublish_order.py "7ea91f941e7feb07ef854e57b55ee88bcda829055836ec472db6bc9b68e99338"')
     exit()

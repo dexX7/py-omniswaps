@@ -18,24 +18,24 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
+        orderId = orderBook.AddOrder(order['rawtx'], order['prevtxs'])
         self.assertEqual(order['id'], orderId)
 
     def test_AddOrderAlreadyExists(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderBook.AddOrder(order['hex'], order['prevtxs'])
+        orderBook.AddOrder(order['rawtx'], order['prevtxs'])
         with self.assertRaises(OrderAlreadyExists):
-            orderBook.AddOrder(order['hex'], order['prevtxs'])
+            orderBook.AddOrder(order['rawtx'], order['prevtxs'])
 
     def test_GetOrder(self):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
+        orderId = orderBook.AddOrder(order['rawtx'], order['prevtxs'])
         orderRetrieved = orderBook.GetOrder(orderId)
-        self.assertEqual(order['hex'], orderRetrieved['hex'])
+        self.assertEqual(order['rawtx'], orderRetrieved['rawtx'])
         self.assertEqual(order['prevtxs'], orderRetrieved['prevtxs'])
 
     def test_GetOrderNotFound(self):
@@ -55,7 +55,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
+        orderId = orderBook.AddOrder(order['rawtx'], order['prevtxs'])
         orders = orderBook.ListOrders()
         self.assertEqual(1, len(orders))
         self.assertIn(orderId, orders)
@@ -64,9 +64,9 @@ class TestMemoryKeyRepository(unittest.TestCase):
         orderBook = MemoryOrderRepository(self.rpcServer)
         order = self.getTestOrder()
 
-        orderId = orderBook.AddOrder(order['hex'], order['prevtxs'])
+        orderId = orderBook.AddOrder(order['rawtx'], order['prevtxs'])
         orderRetrieved = orderBook.GetOrder(orderId)
-        self.assertEqual(order['hex'], orderRetrieved['hex'])
+        self.assertEqual(order['rawtx'], orderRetrieved['rawtx'])
         self.assertEqual(order['prevtxs'], orderRetrieved['prevtxs'])
 
         self.assertTrue(orderBook.RemoveOrder(orderId))
@@ -97,7 +97,7 @@ class TestMemoryKeyRepository(unittest.TestCase):
                             'fffad95679dd0f8d3fab1fb24a59f81c30299d807312584752ae'
           }]
 
-        return {'id': orderId, 'hex': orderTx, 'prevtxs': prevTxs}
+        return {'id': orderId, 'rawtx': orderTx, 'prevtxs': prevTxs}
 
 
 if __name__ == '__main__':

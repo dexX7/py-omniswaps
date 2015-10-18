@@ -27,11 +27,11 @@ class OrderRepository:
         """
         return NotImplemented
 
-    def AddOrder(self, order, prevTxs):
+    def AddOrder(self, rawTx, prevTxs):
         """
         Adds an order to the orderbook.
 
-        :param str order: the order to add
+        :param str rawTx: the order to add
         :param obj prevTxs: the transaction inputs
         :returns: the order identifier
         """

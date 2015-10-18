@@ -95,8 +95,7 @@ def sign():
 @app.route('/getorder/<orderId>')
 def getorder(orderId):
     try:
-        order = ctrl.GetOrder(orderId)
-        result = {'orderId': orderId, 'order': order}
+        result = ctrl.GetOrder(orderId)
         code = 200
 
     except OrderNotFound:
@@ -127,7 +126,7 @@ def getorders():
 def addorder():
     data = request.get_json()
 
-    if 'order' not in data:
+    if 'rawtx' not in data or 'prevtxs' not in data:
         result = {'error': 'malformed request'}
         code = 400
 
@@ -137,7 +136,7 @@ def addorder():
 
     try:
         orderId = ctrl.AddOrder(order)
-        result = {'orderId': orderId, 'order': order}
+        result = {'identifier': orderId}
         code = 201
 
     except OrderAlreadyExists:
@@ -155,17 +154,17 @@ def addorder():
 def removeorder():
     data = request.get_json()
 
-    if 'orderId' not in data:
+    if 'identifier' not in data:
         result = {'error': 'malformed request'}
         code = 400
 
         return respond(result, code)
 
-    orderId = data['orderId']
+    orderId = data['identifier']
 
     try:
         status = ctrl.RemoveOrder(orderId)
-        result = {'orderId': orderId, 'removed': status}
+        result = {'identifier': orderId, 'removed': status}
         code = 200
 
     except OrderNotFound:

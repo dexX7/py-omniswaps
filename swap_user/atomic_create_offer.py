@@ -38,8 +38,8 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     print('\nSigned payout stub:')
     printJson(signedPayoutStubTx)
 
-    orderId = PublishOrder(signedPayoutStubTx)
-    print('\nOrder identifier:')
+    orderId = PublishOrder(signedPayoutStubTx['hex'], txid, vout, scriptPubKey, redeemScript)
+    print('\nPublished offer:')
     printJson(orderId)
 
     return orderId

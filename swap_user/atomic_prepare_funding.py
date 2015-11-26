@@ -19,7 +19,8 @@ def FindFundingOutput(destination, rawTx):
         result = {
             'txid': decodedTx['txid'],
             'vout': vout['n'],
-            'scriptPubKey': vout['scriptPubKey']['hex']
+            'scriptPubKey': vout['scriptPubKey']['hex'],
+            'value': vout['value']
         }
         return result
 

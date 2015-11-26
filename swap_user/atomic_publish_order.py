@@ -1,15 +1,17 @@
 #!/usr/bin/env python
+from decimal import Decimal
 import sys
 
 from api import requestAddOrder
 from util import printJson
 
 
-def PublishOrder(rawTx, txid, vout, scriptPubKey, redeemScript):
+def PublishOrder(rawTx, txid, vout, scriptPubKey, redeemScript, value):
     """
     Publishes a swap-offer.
     """
-    prevTxs = [{'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript}]
+    prevTxs = [
+        {'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript, 'value': value}]
     return requestAddOrder(rawTx, prevTxs)
 
 
@@ -22,6 +24,7 @@ def help():
     print('3. vout           (number, required) the index of the funding output')
     print('4. scriptPubKey   (string, required) the scriptPubKey')
     print('5. redeemScript   (string, required) the redeemScript')
+    print('6. value          (string, required) the output value')
     print('Example:')
     print('./atomic_publish_order.py "0100000001cf03f6f5b775421ce8e0ff48ea0c17c0480e671d6e97500f8af25d8b02c008fa0200000'
           '0d90047304402206733c8eb0aaf02d7635e8a94202f01c284e993e7a13d19c861e44c4f99030e23022055f1951895f49b07468a95962'
@@ -31,14 +34,14 @@ def help():
           '552aeffffffff0100e1f505000000001976a9141a0f165479f3a3c8f27e1c783739c553cd6f4f9788ac00000000" "fa08c0028b5df2'
           '8a0f50976e1d670e48c0170cea48ffe0e81c4275b7f5f603cf" 2 "a914efdeebbd7dd5f4723ddb34ebd33d61c102e8ba4b87" "5221'
           '0376b6bec94fe65e0cb43f71359a7c9287bf41066edb68f3a86e9c68d0190d19be2103dbc72f259e86fad518ed5c4b629977d8803f0e'
-          '9696d4daf212be59cdbcc8b1d552ae"')
+          '9696d4daf212be59cdbcc8b1d552ae" 0.0001')
     exit()
 
 
 def main():
     if len(sys.argv) > 1 and 'help' in str(sys.argv[1]):
         help()
-    if len(sys.argv) != 6:
+    if len(sys.argv) != 7:
         help()
 
     rawTx = str(sys.argv[1])
@@ -46,6 +49,7 @@ def main():
     vout = int(sys.argv[3])
     scriptPubKey = str(sys.argv[4])
     redeemScript = str(sys.argv[5])
+    value = Decimal(sys.argv[6])
 
     print('\nRequest:')
     print('  rawTx:        ' + rawTx)
@@ -53,9 +57,10 @@ def main():
     print('  vout:         ' + str(vout))
     print('  scriptPubKey: ' + scriptPubKey)
     print('  redeemScript: ' + redeemScript)
+    print('  value: ' + str(value))
     print('\nResponse:')
 
-    result = PublishOrder(rawTx, txid, vout, scriptPubKey, redeemScript)
+    result = PublishOrder(rawTx, txid, vout, scriptPubKey, redeemScript, value)
     printJson(result)
 
 

@@ -6,6 +6,7 @@ from atomic_create_payout import AddPayout, SealPayout
 from atomic_prepare_funding import PrepareFunding
 from atomic_publish_order import PublishOrder
 from atomic_sign import GetSignedStub
+import server
 from util import printJson
 
 
@@ -24,6 +25,7 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     vout = fundingTx['output']['vout']
     scriptPubKey = fundingTx['output']['scriptPubKey']
     redeemScript = destination['destination']['redeemScript']
+    value = fundingTx['output']['value']
     signingKey = destination['identifier']
 
     signedStubTx = GetSignedStub(txid, vout, scriptPubKey, redeemScript, signingKey)
@@ -38,7 +40,11 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     print('\nSigned payout stub:')
     printJson(signedPayoutStubTx)
 
-    orderId = PublishOrder(signedPayoutStubTx['hex'], txid, vout, scriptPubKey, redeemScript)
+    broadcastedTxid = server.sendrawtransaction(fundingTx['hex'])
+    print('\nBroadcasted funding transaction:')
+    print(broadcastedTxid)
+
+    orderId = PublishOrder(signedPayoutStubTx['hex'], txid, vout, scriptPubKey, redeemScript, value)
     print('\nPublished offer:')
     printJson(orderId)
 

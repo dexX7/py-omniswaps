@@ -82,3 +82,15 @@ def omni_send(from_address, to_address, token_id, amount, reference='0.01', rede
 def omni_createrawtx_reference(rawTx, destination, amount):
     amount = decimal.Decimal(amount)
     return rpc_connection.omni_createrawtx_reference(rawTx, destination, amount)
+
+
+def omni_createrawtx_input(rawTx, txid, n):
+    return rpc_connection.omni_createrawtx_input(rawTx, txid, n)
+
+
+def omni_createrawtx_change(rawTx, prevTxs, destination, fee=decimal.Decimal('0.0001000'), position=0):
+    return rpc_connection.omni_createrawtx_change(rawTx, prevTxs, destination, fee, position)
+
+
+def omni_createrawtx_opreturn(rawTx, payload):
+    return rpc_connection.omni_createrawtx_opreturn(rawTx, payload)

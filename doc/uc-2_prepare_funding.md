@@ -33,7 +33,7 @@ UC-2: Prepare funding
   4. The system creates a raw simple send transaction based on the specified data, with some extra bitcoins sent to the destination as reference amount
   5. The system restores the previous state and enables the automatic broadcasting of Omni transactions
   6. The system determines the output to the script locked destination
-  7. The system returns the raw simple send transaction `rawtx`, as well as the `output`, consisting of `txid`, `vout`, `scriptPubKey` and `value`
+  7. The system returns the raw simple send transaction `rawtx`, as well as the reference `output` to the locked destination, consisting of `txid`, `vout`, `scriptPubKey` and `value`
 
 ##### Extensions:
 

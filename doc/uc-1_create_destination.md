@@ -4,8 +4,8 @@ UC-1: Create destination
   To simulate the properties of an output-based system, funds are going
   to be locked with a m-of-m multi-signature script, based on a key from
   the seller and a new and unique key from an oracle. The oracle will
-  allow only one single signing operation to ensure no funds from the
-  locked destination are double-spent.
+  allow only one single signing operation to ensure no tokens from the
+  locked destination can be double-spent.
 
   This use-case describes the process of creating a 2-of-2
   multi-signature script destination.

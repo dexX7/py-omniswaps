@@ -1,32 +1,37 @@
 UC-1: Create destination
+------------------------
 
-  To simulate the properties of an output-based system, funds are going 
-  to be locked with a m-of-m multisig script, based on a key from the
+  To simulate the properties of an output-based system, funds are going
+  to be locked with a m-of-m multi-signature script, based on a key from
   the seller and a new and unique key from an oracle. The oracle will
   allow only one single signing operation to ensure no funds from the
   locked destination are double-spent.
 
-  This use-case describes the process of creating a 2-of-2 multisig
-  script destination.
+  This use-case describes the process of creating a 2-of-2
+  multi-signature script destination.
 
-Scope:
-  Swap client
+##### Scope:
 
-Level:
-  User-goal
+- Swap client
 
-Primary actor:
-  Seller
+##### Level:
 
-Supporting actor:
-  Oracle
+- User-goal
 
-Preconditions:
+##### Primary actors:
+
+- Seller
+
+##### Supporting actor:
+
+- Oracle
+
+##### Preconditions:
 
   1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
   2. The seller configured the system's settings to connect to a running oracle server
 
-Main success scenario:
+##### Main success scenario:
 
   1. The seller requests to generate a new lock-destination
   2. The seller provides a public key
@@ -37,12 +42,13 @@ Main success scenario:
   7. The system creates a 2-of-2 multisig script, based on the sorted public keys
   8. The system returns the oracle's public key as `identifier`, and the `destination`, consisting of `address`, `pubkeys`, `redeemScript`, `reqSigs` and `type`
 
-Extensions:
+##### Extensions:
 
-  2a. The seller doesn't provide a public key
-      1. The system generates a new public key for the seller
+2a. The seller doesn't provide a public key:
 
-Success guarantee:
+  1. The system generates a new public key for the seller
+
+##### Success guarantee:
 
   1. The oracle generated a new and unique key-pair
   2. The system generated a 2-of-2 multisig script based on the seller's and oracle's public keys

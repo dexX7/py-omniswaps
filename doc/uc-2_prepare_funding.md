@@ -1,26 +1,31 @@
 UC-2: Prepare funding
+---------------------
 
   This use-case describes the process of preparing a raw transaction to
   fund the previously generated destination with tokens.
 
-Scope:
-  Swap client
+##### Scope:
 
-Level:
-  User-goal
+- Swap client
 
-Primary actor:
-  Seller
+##### Level:
 
-Supporting actor:
-  ---
+- User-goal
 
-Preconditions:
+##### Primary actor:
+
+- Seller
+
+##### Supporting actors:
+
+- *None*
+
+##### Preconditions:
 
   1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
   2. The seller generated a script locked destination (UC-1)
 
-Main success scenario:
+##### Main success scenario:
 
   1. The seller requests to prepare a funding transaction
   2. The seller provides a source address to spend from, the funding destination, an identifier of the tokens to lock, and the amount of tokens to lock
@@ -30,14 +35,15 @@ Main success scenario:
   6. The system determines the output to the script locked destination
   7. The system returns the raw simple send transaction `rawtx`, as well as the `output`, consisting of `txid`, `vout`, `scriptPubKey` and `value`
 
-Extensions:
+##### Extensions:
 
-  4a. The system fails to create a raw simple send transaction based on the specified data (e.g. due to too low balance)
-      1. The system restores the previous state and enables the automatic broadcasting of Omni transactions
-      2. The system indicates the failure
-      3. The use-case ends
+4a. The system fails to create a raw simple send transaction based on the specified data (e.g. due to too low balance):
 
-Success guarantee:
+  1. The system restores the previous state and enables the automatic broadcasting of Omni transactions
+  2. The system indicates the failure
+  3. The use-case ends
+
+##### Success guarantee:
 
   1. The system generated a raw funding transaction
   2. The seller has enough tokens and bitcoins to cover the funding transaction

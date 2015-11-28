@@ -1,4 +1,5 @@
 UC-3: Sign transaction stub
+---------------------------
 
   To prepare the lock of tokens, the seller creates a modifiable and
   extendable dummy transaction, spending the output directed to the
@@ -17,26 +18,30 @@ UC-3: Sign transaction stub
   This use-case describes the process of preparing a blank wildcard
   transaction, which is signed by the oracle.
 
-Scope:
-  Swap client
+##### Scope:
 
-Level:
-  User-goal
+- Swap client
 
-Primary actor:
-  Seller
+##### Level:
 
-Supporting actor:
-  Oracle
+- User-goal
 
-Preconditions:
+##### Primary actor:
+
+- Seller
+
+##### Supporting actor:
+
+- Oracle
+
+##### Preconditions:
 
   1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
   2. The seller configured the system's settings to connect to a running oracle server
   3. The seller generated a script locked destination (UC-1)
   4. The seller prepared a funding transaction (UC-2)
 
-Main success scenario:
+##### Main success scenario:
 
   1. The seller requests to create a signed transaction stub
   2. The seller provides the hash of the signed funding transaction, the index of the funding output to the target destination, the corresponding scriptPubKey, the redeemScript for the locked destination, and the public key of the oracle, which was used to create the lock
@@ -45,17 +50,19 @@ Main success scenario:
   5. The oracle returns the signed transaction stub
   6. The system returns the signed transaction stub
 
-Extensions:
+##### Extensions:
 
-  5a. The oracle refuses to sign the transaction stub, because it previously signed a transaction, spending the locked output
-      1. The system indicates the failure
-      2. The use-case ends
+5a. The oracle refuses to sign the transaction stub, because it previously signed a transaction, spending the locked output
 
-  5b. The oracle refuses to sign the transaction stub, because the data provided by the seller doesn't refer to a previously generated locked destination
-      1. The system indicates the failure
-      2. The use-case ends
+  1. The system indicates the failure
+  2. The use-case ends
 
-Success guarantee:
+5b. The oracle refuses to sign the transaction stub, because the data provided by the seller doesn't refer to a previously generated locked destination
+
+  1. The system indicates the failure
+  2. The use-case ends
+
+##### Success guarantee:
 
   1. The system generated a modifiable and extendable transaction stub, spending the locked output
   2. The oracle will refuse to sign any further transactions, spending the locked output

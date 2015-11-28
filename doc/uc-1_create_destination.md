@@ -18,7 +18,7 @@ UC-1: Create destination
 
 - User-goal
 
-##### Primary actors:
+##### Primary actor:
 
 - Seller
 
@@ -39,7 +39,7 @@ UC-1: Create destination
   4. The oracle generates a new and unique key-pair
   5. The oracle returns the corresponding public key
   6. Both keys are sorted
-  7. The system creates a 2-of-2 multisig script, based on the sorted public keys
+  7. The system creates a 2-of-2 multi-signature script, based on the sorted public keys
   8. The system returns the oracle's public key as `identifier`, and the `destination`, consisting of `address`, `pubkeys`, `redeemScript`, `reqSigs` and `type`
 
 ##### Extensions:
@@ -47,6 +47,7 @@ UC-1: Create destination
 2a. The seller doesn't provide a public key:
 
   1. The system generates a new public key for the seller
+  2. The use-case continues at 3
 
 ##### Success guarantee:
 

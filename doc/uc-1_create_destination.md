@@ -38,7 +38,7 @@ UC-1: Create destination
   3. The system requests a new public key from the oracle
   4. The oracle generates a new and unique key-pair
   5. The oracle returns the corresponding public key
-  6. Both keys are sorted
+  6. The system sorts both keys
   7. The system creates a 2-of-2 multi-signature script, based on the sorted public keys
   8. The system returns the oracle's public key as `identifier`, and the `destination`, consisting of `address`, `pubkeys`, `redeemScript`, `reqSigs` and `type`
 

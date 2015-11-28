@@ -2,20 +2,20 @@ UC-3: Sign transaction stub
 ---------------------------
 
   To prepare the lock of tokens, the seller creates a modifiable and
-  extendable dummy transaction, spending the output directed to the
+  expandable blank transaction, spending the output directed to the
   script locked destination, and requests the oracle to sign this
   transaction.
 
   Note: because the oracle will only sign one single transaction from
   the script locked destination, the seller requests the oracle to sign
   a blank transaction spending the output with the signature hash flags
-  `NONE|ANYONECANPAY`. This transaction then serves as wildcard, and
+  `"NONE|ANYONECANPAY"`. This transaction then serves as wild card, and
   due to the flags it becomes possible to to add additional inputs or
   outputs. This way the seller can create an arbitrary number of
   transactions spending this one locked output, but the seller can't
   create any other transaction spending from the locked destination.
 
-  This use-case describes the process of preparing a blank wildcard
+  This use-case describes the process of preparing a blank wild card
   transaction, which is signed by the oracle.
 
 ##### Scope:
@@ -45,8 +45,8 @@ UC-3: Sign transaction stub
 
   1. The seller requests to create a signed transaction stub
   2. The seller provides the hash of the signed funding transaction, the index of the funding output to the target destination, the corresponding scriptPubKey, the redeemScript for the locked destination, and the public key of the oracle, which was used to create the lock
-  3. The sytem creates a blank raw transaction, which has no outputs and only has one input: the locked output, spending from the locked destination
-  4. The system requests the oracle to sign the transaction stub with `NONE|ANYONECANPAY`
+  3. The system creates a blank raw transaction, which has no outputs and only has one input: the locked output, spending from the locked destination
+  4. The system requests the oracle to sign the transaction stub with `"NONE|ANYONECANPAY"`
   5. The oracle returns the signed transaction stub
   6. The system returns the signed transaction stub
 
@@ -64,5 +64,5 @@ UC-3: Sign transaction stub
 
 ##### Success guarantee:
 
-  1. The system generated a modifiable and extendable transaction stub, spending the locked output
+  1. The system generated a modifiable and expandable transaction stub, spending the locked output
   2. The oracle will refuse to sign any further transactions, spending the locked output

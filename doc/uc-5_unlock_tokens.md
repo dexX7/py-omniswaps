@@ -20,7 +20,7 @@ UC-5: Unlock tokens
 
 - Seller
 
-##### Supporting actor:
+##### Supporting actors:
 
 - *None*
 
@@ -35,7 +35,7 @@ UC-5: Unlock tokens
   1. The seller requests to unlock tokens
   2. The seller provides the transaction stub signed by the oracle, it's transaction inputs (i.e. the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey and the redeemScript for the locked destination), and a destination to send the tokens to
   3. The system determines the identifier and amount of locked tokens
-  4. The system adds a payload to the transaction stub, sending the previously determined amount of tokens (either as "simple send", or "send all")
+  4. The system adds a payload to the transaction stub, sending the previously determined amount of tokens (either as "simple send" or "send all")
   5. The system adds a reference output to the transaction stub, with the seller's specified destination, whereby the reference amount also serves to carry change
   6. The system signs the transaction with the signature hash flag `"ALL"`
   7. The system broadcasts the signed transaction

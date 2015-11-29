@@ -43,7 +43,19 @@ UC-5: Unlock tokens
 
 ##### Extensions:
 
-- *None*
+3a. The system determines the locked destination has a zero balance
+
+  1. The use-case continues at 5
+
+6a. The system fails to sign the transaction
+
+  1. The system indicates the failure
+  2. The use-case ends
+
+7a. The system fails to broadcast the funding transaction
+
+  1. The system indicates the failure
+  2. The use-case ends
 
 ##### Success guarantee:
 

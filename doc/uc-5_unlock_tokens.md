@@ -61,3 +61,7 @@ UC-5: Unlock tokens
 
   1. The tokens are unlocked and returned to the seller
   2. The script locked destination is considered as used
+
+##### Notes:
+
+- Alternatively the user may provide the payload to add to the transaction, to reduce the need for a fully synchronized chain

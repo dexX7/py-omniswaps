@@ -53,3 +53,7 @@ UC-1: Create destination
 
   1. The oracle generated a new and unique key-pair
   2. The system generated a 2-of-2 multisig script based on the seller's and oracle's public keys
+
+##### Notes:
+
+- Alternatively it is thinkable to support more than one public key, e.g. to allow 3-of-3, 4-of-4 etc., and to leverage multiple oracles

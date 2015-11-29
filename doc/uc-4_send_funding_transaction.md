@@ -46,4 +46,4 @@ UC-4: Send funding transaction
 
 ##### Success guarantee:
 
-  1. The funding transaction was broadcasted and considered as locked
+  1. The funding transaction was broadcasted and the tokens are now considered as locked

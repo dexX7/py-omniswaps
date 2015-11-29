@@ -44,7 +44,7 @@ UC-3: Sign transaction stub
 ##### Main success scenario:
 
   1. The seller requests to create a signed transaction stub
-  2. The seller provides the hash of the signed funding transaction, the index of the funding output to the target destination, the corresponding scriptPubKey, the redeemScript for the locked destination, and the public key of the oracle, which was used to create the lock
+  2. The seller provides the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey, the redeemScript for the locked destination, and the public key of the oracle, which was used to create the lock
   3. The system creates a blank raw transaction, which has no outputs and only has one input: the locked output, spending from the locked destination
   4. The system requests the oracle to sign the transaction stub with `"NONE|ANYONECANPAY"`
   5. The oracle returns the signed transaction stub

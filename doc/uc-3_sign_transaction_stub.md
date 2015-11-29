@@ -10,7 +10,7 @@ UC-3: Sign transaction stub
   the script locked destination, the seller requests the oracle to sign
   a blank transaction spending the output with the signature hash flags
   `"NONE|ANYONECANPAY"`. This transaction then serves as wild card, and
-  due to the flags it becomes possible to to add additional inputs or
+  due to the flags it becomes possible to dd additional inputs or
   outputs. This way the seller can create an arbitrary number of
   transactions spending this one locked output, but the seller can't
   create any other transaction spending from the locked destination.
@@ -48,7 +48,8 @@ UC-3: Sign transaction stub
   3. The system creates a blank raw transaction, which has no outputs and only has one input: the locked output, spending from the locked destination
   4. The system requests the oracle to sign the transaction stub with `"NONE|ANYONECANPAY"`
   5. The oracle returns the signed transaction stub
-  6. The system returns the signed transaction stub
+  6. The system verifies the signed transaction and checks, whether it contains the specified data as well as a valid signature from the oracle
+  7. The system returns the signed transaction stub
 
 ##### Extensions:
 
@@ -58,6 +59,11 @@ UC-3: Sign transaction stub
   2. The use-case ends
 
 5b. The oracle refuses to sign the transaction stub, because the data provided by the seller doesn't refer to a previously generated locked destination
+
+  1. The system indicates the failure
+  2. The use-case ends
+
+6a. The systems fails to verify the signed transaction
 
   1. The system indicates the failure
   2. The use-case ends

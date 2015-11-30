@@ -31,22 +31,26 @@ UC-6: Create swap offer
 
 ##### Preconditions:
 
-1. TODO
-2. TODO
+  1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
+  2. The seller created and verified a signed transaction stub (UC-3)
+  3. The seller previously funded a script locked destination with tokens (UC-4)
 
 ##### Main success scenario:
 
-1. TODO
-2. TODO
+  1. The seller requests to prepare an atomic swap offer
+  2. The seller provides the transaction stub signed by the oracle, it's transaction inputs (i.e. the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey and the redeemScript for the locked destination), a destination to send the coins to, and specifies the amount of coins desired in exchange for the tokens
+  3. The system adds an output to the transaction stub, with the seller's specified destination and payment amount
+  4. The system signs the transaction with the signature hash flag `"SINGLE|ANYONECANPAY"`
+  5. The system returns the updated and signed raw transaction
 
 ##### Extensions:
 
-Xa. TODO
+4a. The system fails to sign the transaction
 
-  1. TODO
-  2. TODO
+  1. The system indicates the failure
+  2. The use-case ends
 
 ##### Success guarantee:
 
-  1. TODO
-  2. TODO
+  1. The transaction stub was extended with a payment output to the seller
+  2. The payment output can't be removed or modified, without invalidating the transaction

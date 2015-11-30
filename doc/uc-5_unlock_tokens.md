@@ -28,7 +28,7 @@ UC-5: Unlock tokens
 
   1. The seller configured the system's settings to connect to a running Omni Core RPC server
   2. The seller created and verified a signed transaction stub (UC-3)
-  2. The seller previously funded a script locked destination with tokens (UC-4)
+  3. The seller previously funded a script locked destination with tokens (UC-4)
 
 ##### Main success scenario:
 

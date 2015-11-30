@@ -1,6 +1,8 @@
 UC-2: Prepare funding
 ---------------------
 
+  The locked destination is going to be funded with tokens.
+
   This use-case describes the process of preparing a raw transaction to
   fund the previously generated destination with tokens.
 

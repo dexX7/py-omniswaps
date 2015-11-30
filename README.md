@@ -37,14 +37,14 @@ While oracles introduce third-party dependencies, it is thinkable to embed the b
 
 ##### 2.2. Oracle server:
 
-  1. [UC-Oracle-1: Create new and unique key-pair](doc/uc-oracle-1_create_key_pair.md)
-  2. [UC-Oracle-2: Sign transaction stub](doc/uc-oracle-2_sign_transaction_stub.md)
+  1. [UC-Oracle-1: Create new and unique key-pair](doc/uc-oracle-1_create_key_pair.md) *TODO*
+  2. [UC-Oracle-2: Sign transaction stub](doc/uc-oracle-2_sign_transaction_stub.md) *TODO*
 
 ##### 2.3. Order server:
 
-  1. [UC-Order-1: Publish swap offer](doc/uc-order-1_publish_order.md)
-  2. [UC-Order-2: Revoke swap offer](doc/uc-order-2_revoke_order.md)
-  3. [UC-Order-3: List swap offers](doc/uc-order-3_list_orders.md)
+  1. [UC-Order-1: Publish swap offer](doc/uc-order-1_publish_order.md) *TODO*
+  2. [UC-Order-2: Revoke swap offer](doc/uc-order-2_revoke_order.md) *TODO*
+  3. [UC-Order-3: List swap offers](doc/uc-order-3_list_orders.md) *TODO*
 
 3. API
 ------
@@ -56,6 +56,6 @@ While oracles introduce third-party dependencies, it is thinkable to embed the b
 
 ##### 3.2. Order server:
 
-  1. [API-Order-1: Publish a swap offer](#)
-  2. [API-Order-2: Revoke a swap offer](#)
-  3. [API-Order-3: List available swap offers](#)
+  1. [API-Order-1: Publish a swap offer](#) *TODO*
+  2. [API-Order-2: Revoke a swap offer](#) *TODO*
+  3. [API-Order-3: List available swap offers](#) *TODO*

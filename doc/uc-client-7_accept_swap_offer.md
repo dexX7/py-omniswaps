@@ -31,12 +31,12 @@ UC-Client-7: Accept swap offer
 ##### Preconditions:
 
   1. The buyer configured the system's settings to connect to a running Omni Core RPC server
-  2. The buyer received an unfinalized swap offer transaction from the seller (UC-6)
+  2. The buyer received an unfinalized swap offer transaction from the seller (UC-Client-6)
 
 ##### Main success scenario:
 
   1. The buyer requests to accept and finalize an atomic swap
-  2. The buyer provides the transaction stub from the seller (UC-6), it's transaction inputs (i.e. the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey and the redeemScript for the locked destination), a destination to send the tokens to, and a source address to pay for the swap
+  2. The buyer provides the transaction stub from the seller (UC-Client-6), it's transaction inputs (i.e. the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey and the redeemScript for the locked destination), a destination to send the tokens to, and a source address to pay for the swap
   3. The system determines the identifier and amount of locked tokens
   4. The system adds a payload to the transaction stub, sending the previously determined amount of tokens (either as "simple send" or "send all")
   5. The system determines the total output value including transaction fees of the transaction

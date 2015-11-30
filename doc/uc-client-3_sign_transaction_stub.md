@@ -38,8 +38,8 @@ UC-Client-3: Sign transaction stub
 
   1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
   2. The seller configured the system's settings to connect to a running oracle server
-  3. The seller generated a script locked destination (UC-1)
-  4. The seller prepared a funding transaction (UC-2)
+  3. The seller generated a script locked destination (UC-Client-1)
+  4. The seller prepared a funding transaction (UC-Client-2)
 
 ##### Main success scenario:
 
@@ -47,7 +47,7 @@ UC-Client-3: Sign transaction stub
   2. The seller provides the hash of the signed funding transaction, the index of the funding output to the script lock destination, the corresponding scriptPubKey, the redeemScript for the locked destination, and the public key of the oracle, which was used to create the lock
   3. The system creates a blank raw transaction, which has no outputs and only has one input: the locked output, spending from the locked destination
   4. The system requests the oracle to sign the transaction stub with `"NONE|ANYONECANPAY"`
-  5. The oracle returns the signed transaction stub
+  5. The oracle returns the signed transaction stub (UC-Oracle-2)
   6. The system verifies the signed transaction and checks, whether it contains the specified data as well as a valid signature from the oracle
   7. The system returns the signed transaction stub
 

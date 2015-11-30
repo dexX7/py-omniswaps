@@ -28,7 +28,7 @@ UC-Client-4: Send funding transaction
 ##### Preconditions:
 
   1. The seller configured the system's settings to connect to a running Bitcoin or Omni Core RPC server
-  2. The seller prepared a funding transaction (UC-2)
+  2. The seller prepared a funding transaction (UC-Client-2)
   3. The seller created and verified a signed transaction stub, which may be used to return the tokens (UC-3)
 
 ##### Main success scenario:

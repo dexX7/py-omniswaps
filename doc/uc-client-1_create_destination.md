@@ -36,11 +36,10 @@ UC-Client-1: Create destination
   1. The seller requests to generate a new lock-destination
   2. The seller provides a public key
   3. The system requests a new public key from the oracle
-  4. The oracle generates a new and unique key-pair
-  5. The oracle returns the corresponding public key
-  6. The system sorts both keys
-  7. The system creates a 2-of-2 multi-signature script, based on the sorted public keys
-  8. The system returns the oracle's public key as `identifier`, and the `destination`, consisting of `address`, `pubkeys`, `redeemScript`, `reqSigs` and `type`
+  4. The oracle generates and returns new and unique key-pair (UC-Oracle-1)
+  5. The system sorts both keys
+  6. The system creates a 2-of-2 multi-signature script, based on the sorted public keys
+  7. The system returns the oracle's public key as `identifier`, and the `destination`, consisting of `address`, `pubkeys`, `redeemScript`, `reqSigs` and `type`
 
 ##### Extensions:
 

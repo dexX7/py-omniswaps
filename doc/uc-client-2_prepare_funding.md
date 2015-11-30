@@ -25,7 +25,7 @@ UC-Client-2: Prepare funding
 ##### Preconditions:
 
   1. The seller configured the system's settings to connect to a running Omni Core RPC server
-  2. The seller generated a script locked destination (UC-1)
+  2. The seller generated a script locked destination (UC-Client-1)
 
 ##### Main success scenario:
 

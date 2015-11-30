@@ -1,5 +1,5 @@
-UC-5: Unlock tokens
--------------------
+UC-Client-5: Unlock tokens
+--------------------------
 
   If the seller decides to cancel a swap and simply wants to unlock the
   script locked tokens, then a simple send back to the seller can be

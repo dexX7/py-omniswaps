@@ -1,5 +1,5 @@
-UC-3: Sign transaction stub
----------------------------
+UC-Client-3: Sign transaction stub
+----------------------------------
 
   To prepare the lock of tokens, the seller creates a modifiable and
   expandable blank transaction, spending the output directed to the

@@ -1,5 +1,5 @@
-UC-7: Accept swap offer
------------------------
+UC-Client-7: Accept swap offer
+------------------------------
 
   A buyer finalizes the atomic swap by adding one or more inputs to the
   swap offer transaction, carrying enough value to pay for the payment

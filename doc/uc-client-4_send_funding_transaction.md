@@ -1,5 +1,5 @@
-UC-4: Send funding transaction
-------------------------------
+UC-Client-4: Send funding transaction
+-------------------------------------
 
   After the seller created a blank wild card transaction stub, and
   the oracle signed the transaction stub, the seller can be sure his or

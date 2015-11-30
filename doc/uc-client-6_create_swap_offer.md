@@ -1,5 +1,5 @@
-UC-6: Create swap offer
------------------------
+UC-Client-6: Create swap offer
+------------------------------
 
   To prepare an atomic swap, the seller extends the transaction stub
   with a transaction output to a desired destination, and the payment

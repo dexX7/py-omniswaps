@@ -1,5 +1,5 @@
-UC-2: Prepare funding
----------------------
+UC-Client-2: Prepare funding
+----------------------------
 
   The locked destination is going to be funded with tokens.
 

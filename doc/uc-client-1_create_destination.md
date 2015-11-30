@@ -1,5 +1,5 @@
-UC-1: Create destination
-------------------------
+UC-Client-1: Create destination
+-------------------------------
 
   To simulate the properties of an output-based system, funds are going
   to be locked with a m-of-m multi-signature script, based on a key from

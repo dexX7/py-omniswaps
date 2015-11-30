@@ -6,11 +6,11 @@ UC-3: Sign transaction stub
   script locked destination, and requests the oracle to sign this
   transaction.
 
-  Note: because the oracle will only sign one single transaction from
-  the script locked destination, the seller requests the oracle to sign
-  a blank transaction spending the output with the signature hash flags
+  Because the oracle will only sign one single transaction from the
+  script locked destination, the seller requests the oracle to sign a
+  blank transaction spending the output with the signature hash flags
   `"NONE|ANYONECANPAY"`. This transaction then serves as wild card, and
-  due to the flags it becomes possible to dd additional inputs or
+  due to the flags it becomes possible to add additional inputs or
   outputs. This way the seller can create an arbitrary number of
   transactions spending this one locked output, but the seller can't
   create any other transaction spending from the locked destination.

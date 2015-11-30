@@ -60,8 +60,8 @@ UC-Client-7: Accept swap offer
 
 8a. The system fails to sign the transaction
 
-    1. The system indicates the failure
-    2. The use-case ends
+  1. The system indicates the failure
+  2. The use-case ends
 
 9a. The system fails to broadcast the funding transaction
 

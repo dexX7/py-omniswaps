@@ -1,6 +1,3 @@
-Table of contents
-=================
-
 1. Use cases
 ------------
 

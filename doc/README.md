@@ -9,7 +9,7 @@
   4. [UC-Client-4: Send funding transaction](uc-client-4_send_funding_transaction.md)
   5. [UC-Client-5: Unlock tokens](uc-client-5_unlock_tokens.md)
   6. [UC-Client-6: Create swap offer](uc-client-6_create_swap_offer.md)
-  7. [UC-Client-7: Accept swap offere](uc-client-7_accept_swap_offer.md)
+  7. [UC-Client-7: Accept swap offer](uc-client-7_accept_swap_offer.md)
 
 ##### 1.2. Oracle server:
 

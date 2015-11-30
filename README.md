@@ -56,6 +56,6 @@ While oracles introduce third-party dependencies, it is thinkable to embed the b
 
 ##### 3.2. Order server:
 
-  1. [API-Order-1: Publish swap offer](#)
-  2. [API-Order-2: Revoke swap offer](#)
-  3. [API-Order-3: List swap offers](#)
+  1. [API-Order-1: Publish a swap offer](#)
+  2. [API-Order-2: Revoke a swap offer](#)
+  3. [API-Order-3: List available swap offers](#)

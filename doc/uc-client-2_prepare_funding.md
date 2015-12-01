@@ -48,7 +48,7 @@ UC-Client-2: Prepare funding
   2. The seller has enough tokens and bitcoins to cover the funding transaction
   3. The funding transaction carries enough bitcoin as reference amount for at least one transaction sent from the script locked destination
 
-##### Navigation:
+---
 
 - [To previous page](uc-client-1_create_destination.md)
 - [To next page](uc-client-2_prepare_funding.md)

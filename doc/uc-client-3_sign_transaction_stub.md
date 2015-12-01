@@ -75,6 +75,6 @@ UC-Client-3: Sign transaction stub
 
 ---
 
-- [To previous page](uc-client-2_prepare_funding.md)
 - [To next page](uc-client-4_send_funding_transaction.md)
+- [To previous page](uc-client-2_prepare_funding.md)
 - [Back to overview](README.md)

@@ -52,6 +52,6 @@ Xa. TODO
 
 ##### Navigation:
 
-- [To previous use case](XXXXXXXX.md)
-- [To next use case](XXXXXXXX.md)
+- [To next page](uc-oracle-2_sign_transaction_stub.md)
+- [To previous page](uc-client-7_accept_swap_offer.md)
 - [Back to overview](README.md)

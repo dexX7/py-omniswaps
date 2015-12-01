@@ -19,8 +19,8 @@ Status: 200 OK
 }
 ```
 
-##### Navigation:
+---
 
-- [To previous page](uc-order-3_list_orders.md)
 - [To next page](api-oracle-2_post_sign.md)
+- [To previous page](uc-order-3_list_orders.md)
 - [Back to overview](README.md)

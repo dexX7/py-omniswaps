@@ -48,8 +48,8 @@ UC-Client-4: Send funding transaction
 
   1. The funding transaction was broadcasted and the tokens are now considered as locked
 
-##### Navigation:
+---
 
-- [To previous use case](uc-client-3_sign_transaction_stub.md)
-- [To next use case](uc-client-5_unlock_tokens.md)
+- [To next page](uc-client-5_unlock_tokens.md)
+- [To previous page](uc-client-3_sign_transaction_stub.md)
 - [Back to overview](README.md)

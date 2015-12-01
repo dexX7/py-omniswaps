@@ -43,8 +43,8 @@ Xa. TODO
   1. TODO
   2. TODO
 
-##### Navigation:
+---
 
-- [To previous page](uc-order-1_publish_order.md)
 - [To next page](uc-order-3_list_orders.md)
+- [To previous page](uc-order-1_publish_order.md)
 - [Back to overview](README.md)

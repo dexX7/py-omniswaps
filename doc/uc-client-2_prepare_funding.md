@@ -50,6 +50,6 @@ UC-Client-2: Prepare funding
 
 ---
 
-- [To previous page](uc-client-1_create_destination.md)
 - [To next page](uc-client-2_prepare_funding.md)
+- [To previous page](uc-client-1_create_destination.md)
 - [Back to overview](README.md)

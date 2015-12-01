@@ -55,8 +55,8 @@ UC-Client-6: Create swap offer
   1. The transaction stub was extended with a payment output to the seller
   2. The payment output can't be removed or modified, without invalidating the transaction
 
-##### Navigation:
+---
 
-- [To previous use case](uc-client-5_unlock_tokens.md)
-- [To next use case](uc-client-7_accept_swap_offer.md)
+- [To next page](uc-client-7_accept_swap_offer.md)
+- [To previous page](uc-client-5_unlock_tokens.md)
 - [Back to overview](README.md)

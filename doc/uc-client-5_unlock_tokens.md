@@ -66,8 +66,8 @@ UC-Client-5: Unlock tokens
 
 - Alternatively the user may provide the payload to add to the transaction, to reduce the need for a fully synchronized chain
 
-##### Navigation:
+---
 
-- [To previous use case](XXXXXXXX.md)
-- [To next use case](XXXXXXXX.md)
+- [To next page](uc-client-6_create_swap_offer.md)
+- [To previous page](uc-client-4_send_funding_transaction.md)
 - [Back to overview](README.md)

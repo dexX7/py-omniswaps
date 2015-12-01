@@ -45,6 +45,6 @@ Xa. TODO
 
 ##### Navigation:
 
-- [To previous page](XXXXXXXX.md)
-- [To next page](XXXXXXXX.md)
+- [To next page](uc-order-2_revoke_order.md)
+- [To previous page](uc-oracle-2_sign_transaction_stub.md)
 - [Back to overview](README.md)

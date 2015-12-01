@@ -78,8 +78,8 @@ UC-Client-7: Accept swap offer
 - Alternatively the buyer may provide a set of unspent outputs, instead of a source address to pay from
 - Alternatively the buyer may provide the payload to add to the transaction, to reduce the need for a fully synchronized chain
 
-##### Navigation:
+---
 
-- [To previous page](uc-client-6_create_swap_offer.md)
 - [To next page](uc-oracle-1_create_key_pair.md)
+- [To previous page](uc-client-6_create_swap_offer.md)
 - [Back to overview](README.md)

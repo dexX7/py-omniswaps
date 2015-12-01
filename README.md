@@ -18,12 +18,11 @@ To overcome these issues, the actual swap of tokens for bitcoins is an atomic on
 
 Balance based systems, such as Omni or Counterparty, in contrast to output based systems, such as Open Assets, face the challenge that tokens to be sold may be double-spent via a second transaction, which is unrelated to the swap transaction. As mitigation tokens are temporarily guarded and locked by a m-of-m multi signature script, which is signed off by one or multiple oracles and the seller of the tokens, to simulate the properties of an output based system.
 
+The trust and dependency on the oracles is greaty reduced by minimizing the scope of their role: an oracle uses a private key to sign a transaction exactly only once, to sign a modifiable and extendable "wild card" transaction, which can be re-used as building block. Therefore, even if an oracle vanishes or stops it's service, a seller is still able to unlock tokens, or modify a swap offer.
+
+Combining the concept of locking tokens and atomic swaps, the minimum number of blockchain confirmations can be reduced from two (for offering and reserving tokens) to one (for locking tokens), without the need for fancy fees or a multi-step purchase process. Given the properties of traditional exchange, the effective number of confirmations in practise is likely much higher due to the waiting for confirmations, when accepting an offer.
+
 While oracles introduce third-party dependencies, it is thinkable to embed the behavior of oracles into the Omni protocol at in the future, although the author believes this initial trade-off provides a good chance to test atomic swaps in the context balance based systems, before introducing new consensus rules.
-
-The trust and dependency on the oracles is further greaty reduced by minimizing the scope of their role: an oracle uses a private key to sign a transaction exactly only once, to sign a modifiable and extendable "wild card" transaction, which can be re-used as building block. Therefore, even if an oracle vanishes or stops it's service, a seller is still able to unlock tokens, or modify a swap offer.
-
-Combining the concept of locking tokens and atomic swaps, the minimum number of blockchain confirmations can be reduced from two (for offering and reserving tokens) to one (for locking tokens), without the need for fancy fees or a multi-step purchase process. Given the properties of traditional exchange, the effective number of confirmations in practise is likely much higher due to the multi-step purchase process, which requires waiting for the confirmation of accepting an offer.
-
 
 2. Actors and goals
 -------------------

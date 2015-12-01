@@ -47,6 +47,14 @@ An order server is an agent who facilitates the listing of swap offers, and want
 
 A scammer is a malicious party and may try to steal tokens or bitcoins.
 
+##### 2.6. Mutator:
+
+A mutator is a malicious party who may abuse transaction malleability to mess with Bitcoin transactions.
+
+##### 2.7. Operator:
+
+An operator maintains the system or one or multiple agents, and wants to provide a reliable and verifiable service.
+
 
 3. Use cases
 ------------
@@ -65,14 +73,14 @@ The following sections describe each process in detail.
 
 ##### 3.2. Oracle server:
 
-  1. [UC-Oracle-1: Create new and unique key-pair](doc/uc-oracle-1_create_key_pair.md) *TODO*
-  2. [UC-Oracle-2: Sign transaction stub](doc/uc-oracle-2_sign_transaction_stub.md) *TODO*
+  1. [UC-Oracle-1: Create new and unique key-pair](doc/uc-oracle-1_create_key_pair.md) *incomplete*
+  2. [UC-Oracle-2: Sign transaction stub](doc/uc-oracle-2_sign_transaction_stub.md) *incomplete*
 
 ##### 3.3. Order server:
 
-  1. [UC-Order-1: Publish swap offer](doc/uc-order-1_publish_order.md) *TODO*
-  2. [UC-Order-2: Revoke swap offer](doc/uc-order-2_revoke_order.md) *TODO*
-  3. [UC-Order-3: List swap offers](doc/uc-order-3_list_orders.md) *TODO*
+  1. [UC-Order-1: Publish swap offer](doc/uc-order-1_publish_order.md) *incomplete*
+  2. [UC-Order-2: Revoke swap offer](doc/uc-order-2_revoke_order.md) *incomplete*
+  3. [UC-Order-3: List swap offers](doc/uc-order-3_list_orders.md) *incomplete*
 
 
 4. API
@@ -85,6 +93,38 @@ The following sections describe each process in detail.
 
 ##### 4.2. Order server:
 
-  1. [API-Order-1: Publish a swap offer](#) *TODO*
-  2. [API-Order-2: Revoke a swap offer](#) *TODO*
-  3. [API-Order-3: List available swap offers](#) *TODO*
+  1. [API-Order-1: Publish a swap offer](#) *incomplete*
+  2. [API-Order-2: Revoke a swap offer](#) *incomplete*
+  3. [API-Order-3: List available swap offers](#) *incomplete*
+
+
+5. Risks
+--------
+
+##### 5.1. Seller and oracle operator are malicious:
+
+If the oracle doesn't honor it's role, and starts to sign outputs other than "locked" outputs, and if seller and oracle operator are both malicious, then they may cooperate and wait until a bitcoin payment arrives, and try to move tokens to another destination (via another output). If this is successful, the buyer would end up with uncolored coins and no tokens.
+
+This risk can be mitigated by using more than oracle server.
+
+##### 5.2. Compromised infrastructure
+
+TODO
+
+This risk can be mitigated by using more than oracle server.
+
+##### 5.3. Transaction malleability:
+
+TODO
+
+##### 5.4. Censorship of orders:
+
+TODO
+
+##### 5.5. Tokens may be stuck in a locked destination:
+
+TODO
+
+##### 5.6. Agents may shutdown and stop providing service
+
+TODO

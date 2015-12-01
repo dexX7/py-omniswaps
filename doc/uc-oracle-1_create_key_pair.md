@@ -49,3 +49,9 @@ Xa. TODO
   2. A new key-pair was persisted
   3. The key-pair is unique and new
   4. The key-pair wasn't used before
+
+##### Navigation:
+
+- [To previous use case](XXXXXXXX.md)
+- [To next use case](XXXXXXXX.md)
+- [Back to overview](README.md)

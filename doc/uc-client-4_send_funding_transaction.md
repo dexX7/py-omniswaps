@@ -47,3 +47,9 @@ UC-Client-4: Send funding transaction
 ##### Success guarantee:
 
   1. The funding transaction was broadcasted and the tokens are now considered as locked
+
+##### Navigation:
+
+- [To previous use case](uc-client-3_sign_transaction_stub.md)
+- [To next use case](uc-client-5_unlock_tokens.md)
+- [Back to overview](README.md)

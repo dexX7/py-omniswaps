@@ -65,3 +65,9 @@ UC-Client-5: Unlock tokens
 ##### Notes:
 
 - Alternatively the user may provide the payload to add to the transaction, to reduce the need for a fully synchronized chain
+
+##### Navigation:
+
+- [To previous use case](XXXXXXXX.md)
+- [To next use case](XXXXXXXX.md)
+- [Back to overview](README.md)

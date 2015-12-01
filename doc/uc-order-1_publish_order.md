@@ -42,3 +42,9 @@ Xa. TODO
 
   1. TODO
   2. TODO
+
+##### Navigation:
+
+- [To previous page](XXXXXXXX.md)
+- [To next page](XXXXXXXX.md)
+- [Back to overview](README.md)

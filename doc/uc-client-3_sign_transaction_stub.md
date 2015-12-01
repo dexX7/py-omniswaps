@@ -72,3 +72,9 @@ UC-Client-3: Sign transaction stub
 
   1. The system generated a modifiable and expandable transaction stub, spending the locked output
   2. The oracle will refuse to sign any further transactions, spending the locked output
+
+##### Navigation:
+
+- [To previous page](uc-client-2_prepare_funding.md)
+- [To next page](uc-client-4_send_funding_transaction.md)
+- [Back to overview](README.md)

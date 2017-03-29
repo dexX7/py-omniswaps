@@ -1,0 +1,3 @@
+[submodule "doc/guarded-atomic-swaps"]
+	path = doc/guarded-atomic-swaps
+	url = https://github.com/dexX7/guarded-atomic-swaps

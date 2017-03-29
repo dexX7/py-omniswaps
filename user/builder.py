@@ -1,13 +1,12 @@
 import subprocess
+import config
 
-BITCOIN_TX = 'C:\\Users\\dexy\\Downloads\\omnicore-0.0.9.99-dev-win64\\omnicore-0.0.9.99-dev\\bin\\bitcoin-tx.exe'
-BASE_ARGS = '-regtest'
 
 
 def call_tx(rawtx, cmd=None):
     if cmd is None:
-        return subprocess.check_output([BITCOIN_TX, '-regtest', rawtx])
-    return subprocess.check_output([BITCOIN_TX, '-regtest', rawtx, cmd]).strip()
+        return subprocess.check_output([config.BITCOIN_TX, config.BITCOIN_TX_ARGS, rawtx])
+    return subprocess.check_output([config.BITCOIN_TX, config.BITCOIN_TX_ARGS, rawtx, cmd]).strip()
 
 
 def show(rawtx):

@@ -72,7 +72,7 @@ def AcceptOrder(orderId, destination):
         rawTx = server.omni_createrawtx_input(rawTx, out['txid'], out['vout'])
 
     # add payload
-    payload = '0000000402'  # TODO: proper payload creation, ensure op_return is enabled
+    payload = '0000000402'  # send-all test ecosystem # TODO: remove ecosystem magic
     rawTx = server.omni_createrawtx_opreturn(rawTx, payload)
 
     # make change and reference

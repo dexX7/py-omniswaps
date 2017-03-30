@@ -82,8 +82,7 @@ def main():
     print("  amountDesired: " + amountDesired)
     print("\nResponse:")
 
-    result = CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired)
-    # printJson(result)
+    CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired)
 
 
 if __name__ == "__main__":

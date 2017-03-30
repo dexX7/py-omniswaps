@@ -58,7 +58,7 @@ def main():
     print("\nResponse:")
 
     result = AddPayout(rawTx, destination, amount)
-    # result = SealStub(result)
+    result = SealPayout(result)
     printJson(result)
 
 

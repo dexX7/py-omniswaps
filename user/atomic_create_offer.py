@@ -11,6 +11,10 @@ from util import printJson
 
 
 def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
+    """
+    Creates and publishes an offer for an atomic swap, by creating a locked 2-of-2 multisig destination, funding it with
+    the specified amount of tokens, and finally publishing the offer.
+    """
     destination = CreateDestination()
     print('\nDestination:')
     printJson(destination)
@@ -53,12 +57,13 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
 
 def help():
     print('atomic_create_offer address tokenid forsale desired\n')
-    print('Prepares a signed transaction for an atomic swap.\n')
+    print('Creates and publishes an offer for an atomic swap, by creating a locked 2-of-2 multisig destination, '
+          'funding it with the specified amount of tokens, and finally publishing the offer.\n')
     print('Arguments:')
-    print('1. address   (string, optional) the source for the tokens')
-    print('3. tokenid   (string, optional) the identifier of the tokens to swap')
-    print('3. forsale   (string, optional) the amount of tokens to swap')
-    print('4. desired   (string, optional) the amount of coins desired in exchange\n')
+    print('1. address   (string, required) the source for the tokens')
+    print('3. tokenid   (string, required) the identifier of the tokens to swap')
+    print('3. forsale   (string, required) the amount of tokens to swap')
+    print('4. desired   (string, required) the amount of coins desired in exchange\n')
     print('Example:')
     print('./atomic_create_offer.py \"mhtjwKYNZcvLbrvtvNVb4hTYDbfKgoCTx9\" 2 \"10.0\" \"1.0\"')
     exit()

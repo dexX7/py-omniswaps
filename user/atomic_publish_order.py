@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-from decimal import Decimal
 import sys
+from decimal import Decimal
 
-from api import requestAddOrder
+import api as oracle
 from util import printJson
 
 
@@ -12,7 +12,7 @@ def PublishOrder(rawTx, txid, vout, scriptPubKey, redeemScript, value):
     """
     prevTxs = [
         {'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript, 'value': value}]
-    return requestAddOrder(rawTx, prevTxs)
+    return oracle.requestAddOrder(rawTx, prevTxs)
 
 
 def help():

@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-from decimal import Decimal
 import random
 import sys
-from bitcoinrpc.authproxy import JSONRPCException
+from decimal import Decimal
 
-from api import requestGetOrders
+import api as oracle
+import server as rpc
 from atomic_unpublish_order import UnpublishOrder
-import server
 from util import printJson
 
 
@@ -15,7 +14,7 @@ def ExtractValueIn(rawTx):
 
 
 def ExtractValueOut(rawTx):
-    tx = server.decoderawtransaction(rawTx)
+    tx = rpc.decoderawtransaction(rawTx)
     valueOut = Decimal('0.00000000')
     for out in tx['vout']:
         valueOut += out['value']
@@ -32,7 +31,7 @@ def SelectCoins(valueNeeded):
     valueIn = Decimal('0.00000000')
     prevTxs = []
 
-    unspentTxOuts = server.listunspent()
+    unspentTxOuts = rpc.listunspent()
     random.shuffle(unspentTxOuts)
     for out in unspentTxOuts:
         valueIn += out['amount']
@@ -54,7 +53,7 @@ def AcceptOrder(orderId, destination):
     """
     Accepts and pays for an order.
     """
-    orders = requestGetOrders()
+    orders = oracle.requestGetOrders()
     if orderId not in orders:
         raise Exception('ERROR: order id %s not listed' % orderId)
     order = orders[orderId]
@@ -69,23 +68,23 @@ def AcceptOrder(orderId, destination):
 
     # add inputs
     for out in prevTxsToAdd:
-        rawTx = server.omni_createrawtx_input(rawTx, out['txid'], out['vout'])
+        rawTx = rpc.omni_createrawtx_input(rawTx, out['txid'], out['vout'])
 
     # add payload
     payload = '0000000402'  # send-all test ecosystem # TODO: remove ecosystem magic
-    rawTx = server.omni_createrawtx_opreturn(rawTx, payload)
+    rawTx = rpc.omni_createrawtx_opreturn(rawTx, payload)
 
     # make change and reference
-    rawTx = server.omni_createrawtx_change(rawTx, prevTxs, destination, position=999999)  # TODO: position is fishy, reference may be added
+    rawTx = rpc.omni_createrawtx_change(rawTx, prevTxs, destination, position=999999) # TODO: reference may be added
 
     # sign
-    signedTx = server.signrawtransaction(rawTx, prevTxs)
+    signedTx = rpc.signrawtransaction(rawTx, prevTxs)
 
     print('\nSigned transaction:')
     printJson(signedTx)
 
     # broadcast
-    result = server.sendrawtransaction(signedTx['hex'])
+    result = rpc.sendrawtransaction(signedTx['hex'])
 
     # remove order
     UnpublishOrder(orderId)
@@ -100,7 +99,8 @@ def help():
     print('1. orderid       (string, required) the identifier of the order')
     print('2. destination   (string, required) the destination for the tokens\n')
     print('Example:')
-    print('./atomic_accept_order.py "54e2e8f5bd945c751d166dea4d6512b324ef5053cc28adaf0fbeca705f5a8ce3" "n2VV1Z6azGHJWdzLyXkFjQhHqbWjmM7cuh"')
+    print('./atomic_accept_order.py "54e2e8f5bd945c751d166dea4d6512b324ef5053cc28adaf0fbeca705f5a8ce3" '
+          '"n2VV1Z6azGHJWdzLyXkFjQhHqbWjmM7cuh"')
     exit()
 
 

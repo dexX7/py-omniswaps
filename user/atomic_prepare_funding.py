@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import sys
 
-import server
+import server as rpc
 from util import printJson
 
 
 def FindFundingOutput(destination, rawTx):
-    decodedTx = server.decoderawtransaction(rawTx)
+    decodedTx = rpc.decoderawtransaction(rawTx)
 
     for vout in decodedTx['vout']:
         if 'scriptPubKey' not in vout:
@@ -28,9 +28,9 @@ def FindFundingOutput(destination, rawTx):
 
 
 def PrepareFunding(fromAddress, destination, tokenId, amount):
-    server.omni_setautocommit(False)
-    rawTx = server.omni_send(fromAddress, destination, tokenId, amount)
-    server.omni_setautocommit(True)
+    rpc.omni_setautocommit(False)  # TODO: maybe create raw transaction by hand
+    rawTx = rpc.omni_send(fromAddress, destination, tokenId, amount)
+    rpc.omni_setautocommit(True)
 
     fundingOutput = FindFundingOutput(destination, rawTx)
     result = {

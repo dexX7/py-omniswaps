@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-from api import requestRemoveOrder
+import api as oracle
 from util import printJson
 
 
@@ -9,7 +9,7 @@ def UnpublishOrder(orderId):
     """
     Unpublishes a swap-offer.
     """
-    return requestRemoveOrder(orderId)
+    return oracle.requestRemoveOrder(orderId)
 
 
 def help():

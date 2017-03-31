@@ -1,5 +1,6 @@
-import simplejson as json
 import requests
+import simplejson as json
+
 import config
 
 

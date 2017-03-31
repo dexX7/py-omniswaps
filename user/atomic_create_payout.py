@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-import server
+import server as rpc
 from util import printJson
 
 
@@ -9,7 +9,7 @@ def AddPayout(rawTx, destination, amount):
     """
     Adds a payout output to the stub transaction.
     """
-    result = server.omni_createrawtx_reference(rawTx, destination, amount)
+    result = rpc.omni_createrawtx_reference(rawTx, destination, amount)
     return result
 
 
@@ -21,7 +21,7 @@ def SealPayout(rawTx, txid, vout, scriptPubKey, redeemScript):
     """
     prevTxs = [{'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript}]
     sigHashType = 'SINGLE|ANYONECANPAY'
-    result = server.signrawtransaction(rawTx, prevTxs, None, sigHashType)
+    result = rpc.signrawtransaction(rawTx, prevTxs, None, sigHashType)
     return result
 
 

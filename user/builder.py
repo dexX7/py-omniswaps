@@ -1,6 +1,6 @@
 import subprocess
-import config
 
+import config
 
 
 def call_tx(rawtx, cmd=None):

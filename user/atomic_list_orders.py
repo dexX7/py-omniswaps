@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 
-from api import requestGetOrders
+import api as oracle
 from util import printJson
 
 
@@ -9,7 +9,7 @@ def ListOrders():
     """
     Requests published orders.
     """
-    return requestGetOrders()
+    return oracle.requestGetOrders()
 
 
 def help():

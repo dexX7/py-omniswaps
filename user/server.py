@@ -1,6 +1,8 @@
-import config
 import decimal
+
+import config
 from bitcoinrpc.authproxy import AuthServiceProxy
+
 
 rpc_connection = AuthServiceProxy('http://%s:%s@%s:%d' % (config.RPC_USER,
                                                           config.RPC_PASSWORD, config.RPC_CONNECT, config.RPC_PORT))

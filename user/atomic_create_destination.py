@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import sys
-from api import requestPubkey
-from server import *
+
+import api as oracle
+import server as rpc
 from util import printJson
 
 
@@ -9,8 +10,8 @@ def CreatePubKey():
     """
     Creates a new key pair for the user.
     """
-    pubKeyHash = getnewaddress()
-    result = validateaddress(pubKeyHash)
+    pubKeyHash = rpc.getnewaddress()
+    result = rpc.validateaddress(pubKeyHash)
 
     return result['pubkey']
 
@@ -22,9 +23,9 @@ def CreateMultisig(pubKeys):
     :param list pubKeys: the keys used for the multisig script
     """
     pubKeys = sorted(pubKeys)
-    responseCreate = createmultisig(len(pubKeys), pubKeys)
-    responseScript = decodescript(responseCreate['redeemScript'])
-    addmultisigaddress(len(pubKeys), pubKeys)
+    responseCreate = rpc.createmultisig(len(pubKeys), pubKeys)
+    responseScript = rpc.decodescript(responseCreate['redeemScript'])
+    rpc.addmultisigaddress(len(pubKeys), pubKeys)
 
     result = {
         'address': responseScript['p2sh'],
@@ -46,7 +47,7 @@ def CreateDestination(pubKeyUser=None):
     if pubKeyUser is None:
         pubKeyUser = CreatePubKey()
 
-    responsePK = requestPubkey()
+    responsePK = oracle.requestPubkey()
     pubKeyServer = responsePK['pubkey']
     destination = CreateMultisig([pubKeyUser, pubKeyServer])
 

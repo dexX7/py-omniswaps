@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import sys
 
+import server as rpc
 from atomic_create_destination import CreateDestination
 from atomic_create_payout import AddPayout, SealPayout
 from atomic_prepare_funding import PrepareFunding
 from atomic_publish_order import PublishOrder
 from atomic_sign import GetSignedStub
-import server
 from util import printJson
 
 
@@ -40,7 +40,7 @@ def CreateSwapOffer(fromAddress, tokenId, amountForSale, amountDesired):
     print('\nSigned payout stub:')
     printJson(signedPayoutStubTx)
 
-    broadcastedTxid = server.sendrawtransaction(fundingTx['hex'])
+    broadcastedTxid = rpc.sendrawtransaction(fundingTx['hex'])
     print('\nBroadcasted funding transaction:')
     print(broadcastedTxid)
 

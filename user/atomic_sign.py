@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import sys
-import server
-from api import requestSign
+
+import api as oracle
+import server as rpc
 from util import printJson
 
 
@@ -11,10 +12,10 @@ def GetSignedStub(txid, vout, scriptPubKey, redeemScript, signingKey):
     """
     prevTxs = [{'txid': txid, 'vout': vout, 'scriptPubKey': scriptPubKey, 'redeemScript': redeemScript}]
     txOuts = {}
-    rawTxStub = server.createrawtransaction(prevTxs, txOuts)
+    rawTxStub = rpc.createrawtransaction(prevTxs, txOuts)
     sigHashType = 'NONE|ANYONECANPAY'
 
-    return requestSign(rawTxStub, prevTxs, sigHashType, signingKey)
+    return oracle.requestSign(rawTxStub, prevTxs, sigHashType, signingKey)
 
 
 def help():

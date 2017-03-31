@@ -6,10 +6,7 @@ import config
 
 class Controller:
     def __init__(self):
-        rpcServer = AuthServiceProxy(
-            'http://%s:%s@%s:%d' % (config.RPC_USER, config.RPC_PASSWORD, config.RPC_CONNECT, config.RPC_PORT))
-        self.keys = MemoryKeyRepository(rpcServer)
-        self.orders = MemoryOrderRepository(rpcServer)
+        self.resetRepositories()
 
     def GetNextPubKey(self):
         return self.keys.GetNextPubKey()

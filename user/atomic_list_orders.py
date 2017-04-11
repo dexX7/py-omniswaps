@@ -11,16 +11,18 @@ def ListOrders():
     Requests published orders.
     """
     ordersRaw = oracle.requestGetOrders()
-    ordersWithFundingTxs = {}
+    ordersWithInfo = {}
 
-    # add funding tx information from local node
+    # add funding tx and swap tx information from local node
     for key, value in list(ordersRaw.items()):
         tx = rpc.decoderawtransaction(value['rawtx'])
         fundingTxid = tx['vin'][0]['txid']
         value['fundingtx'] = rpc.omni_gettransaction(fundingTxid)
-        ordersWithFundingTxs[key] = value
+        value['swaptx'] = tx
 
-    return ordersWithFundingTxs
+        ordersWithInfo[key] = value
+
+    return ordersWithInfo
 
 
 def help():

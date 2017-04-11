@@ -96,3 +96,7 @@ def omni_createrawtx_change(rawTx, prevTxs, destination, fee=decimal.Decimal('0.
 
 def omni_createrawtx_opreturn(rawTx, payload):
     return rpc_connection.omni_createrawtx_opreturn(rawTx, payload)
+
+
+def omni_gettransaction(txid):
+    return rpc_connection.omni_gettransaction(txid)

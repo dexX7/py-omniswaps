@@ -2,6 +2,7 @@
 import sys
 
 import api as oracle
+import server as rpc
 from util import printJson
 
 
@@ -9,7 +10,17 @@ def ListOrders():
     """
     Requests published orders.
     """
-    return oracle.requestGetOrders()
+    ordersRaw = oracle.requestGetOrders()
+    ordersWithFundingTxs = {}
+
+    # add funding tx information from local node
+    for key, value in list(ordersRaw.items()):
+        tx = rpc.decoderawtransaction(value['rawtx'])
+        fundingTxid = tx['vin'][0]['txid']
+        value['fundingtx'] = rpc.omni_gettransaction(fundingTxid)
+        ordersWithFundingTxs[key] = value
+
+    return ordersWithFundingTxs
 
 
 def help():

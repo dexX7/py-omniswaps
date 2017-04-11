@@ -85,6 +85,8 @@ def AcceptOrder(orderId, destination):
 
     # broadcast
     result = rpc.sendrawtransaction(signedTx['hex'])
+    print('\nSwap transaction:')
+    printJson(result)
 
     # remove order
     UnpublishOrder(orderId)
@@ -118,8 +120,7 @@ def main():
     print('  destination: ' + destination)
     print('\nResponse:')
 
-    result = AcceptOrder(orderId, destination)
-    printJson(result)
+    AcceptOrder(orderId, destination)
 
 
 if __name__ == "__main__":

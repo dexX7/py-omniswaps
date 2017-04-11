@@ -17,9 +17,19 @@ def ListOrders():
     for key, value in list(ordersRaw.items()):
         tx = rpc.decoderawtransaction(value['rawtx'])
         fundingTxid = tx['vin'][0]['txid']
-        value['fundingtx'] = rpc.omni_gettransaction(fundingTxid)
-        value['swaptx'] = tx
+        fundingTxOut = rpc.gettxout(fundingTxid, tx['vin'][0]['vout'])
+        fundingTx = rpc.omni_gettransaction(fundingTxid)
 
+        status = 'not available'
+        if fundingTxOut is not None:
+            if fundingTx['confirmations'] > 0:
+                status = 'confirmed'
+            elif fundingTx['confirmations'] == 0:
+                status = 'unconfirmed'
+
+        value['fundingtx'] = fundingTx
+        value['swaptx'] = tx
+        value['status'] = status
         ordersWithInfo[key] = value
 
     return ordersWithInfo

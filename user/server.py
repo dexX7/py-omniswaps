@@ -68,6 +68,10 @@ def generate():
     return rpc_connection.generate(1)
 
 
+def gettxout(txid, n):
+    return rpc_connection.gettxout(txid, n)
+
+
 def sendrawtransaction(rawtx, high_fees=True):
     return rpc_connection.sendrawtransaction(rawtx, high_fees)
 
